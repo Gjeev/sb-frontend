@@ -1,0 +1,29 @@
+.main-content{
+    height: calc(100vh - 4em);
+    /* position: absolute; */
+    width: 100vw;
+    display: flex;
+}
+.map {
+    height: 100%;
+    width: calc(100vw - 120px);
+    background-color: #0d1b1c;
+}
+.tt-zoom-control
+{
+    margin-right: 30px;
+}
+.coordinates {
+    height: 50px;
+    background-color: white;
+    color: black;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    padding: 0.125em 1em;
+    left: 130px;
+    top: calc(100vh - 60px - 4em);
+}
+

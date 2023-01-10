@@ -1,0 +1,76 @@
+.login-page {
+  position: absolute;
+  max-width: calc(626px + 449px);
+  /* height:calc(75vh); */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 7px;
+  z-index: 1000000000;
+}
+.globe {
+  background: linear-gradient(
+    180deg,
+    rgba(49, 155, 204, 0.7) 0%,
+    rgba(20, 125, 174, 0.7) 24.79%,
+    rgba(17, 83, 114, 0.7) 51.35%,
+    rgba(40, 114, 148, 0.7) 72.71%,
+    rgba(6, 77, 109, 0.7) 100%
+  );
+  width: 626px;
+  height: auto;
+  /* height: 100%; */
+  color: white;
+  border-radius: 5px 0 0 5px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+}
+.globe h1,
+h4 {
+  text-align: center;
+  color: white;
+}
+.login {
+  width: 449px;
+  padding: 0 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login-link,
+h1 {
+  color: #319bcc;
+}
+.fp {
+  margin-top: 1em;
+}
+.login-paragraph {
+  color: #6c757d;
+}
+
+.login-button {
+  margin-top: 2em;
+  border: 1px solid #319bcc;
+  border-radius: 6px;
+  padding: 0.75em 2em;
+  background-color: #319bcc !important;
+  color: white;
+  width: inherit;
+  font-family: "Inter";
+}
+.red-error-login{
+  color: red ;
+  width: 100%;
+  text-align: center;
+  font-size: small;
+}
+#buttonDiv{
+  display: flex;
+  justify-content: center;
+}
