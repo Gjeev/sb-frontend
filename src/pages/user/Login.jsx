@@ -1,6 +1,6 @@
 import "../../css/login.css";
 import Input from "./Input";
-import { useState, useEffect, useLayoutEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Button, Grid, Divider, Box } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { login } from "../../actions/user";
@@ -20,7 +20,7 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [invalidCredentials, setInvalidCredentials] = useState(false);
   const [usernameDNE, setUsernameDNE] = useState(false);
-  
+  const ref = useRef(null);
   const [width, setWidth] = useState(0);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -52,8 +52,6 @@ export default function Login() {
       document.getElementById("buttonDiv"),
       { theme: "outline", size: "large", width: width } // customization attributes
     );
-    google.accounts.id.prompt(); 
-
   }, [width]);
 
   const handleCredentialResponse = (response) => {
@@ -150,7 +148,7 @@ export default function Login() {
             color="primary"
             sx={{ mb: 3 }}
           >
-            "LOG IN"
+            LOG IN
           </Button>
         </form>
 
@@ -158,8 +156,8 @@ export default function Login() {
           Forgot Password?
         </a>
         <Divider className="login-paragraph">OR</Divider>
-        
-        <Box id="buttonDiv"></Box>
+
+        <Box id="buttonDiv" ref={ref}></Box>
       </div>
     </div>
   );

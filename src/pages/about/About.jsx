@@ -1,4 +1,5 @@
 import "../../css/about.css";
+import Footer from "../../components/Footer.jsx";
 export default function About() {
   const partner = [
     {
@@ -39,8 +40,8 @@ export default function About() {
           <div className="img3"></div>
           <div className="img4"></div>
         </div>
-      </div>
-      <div className="landing2">
+      </div> 
+       <div className="landing2">
         <div className="landing2-image">
           <img src="/images/abt5.png"></img>
         </div>
@@ -50,6 +51,19 @@ export default function About() {
           <p>from seasonality to type of crop of the crops in just a click</p>
           <button>Check out our services</button>
           <img src="/images/iconClick.png"></img>
+        </div>
+      </div>
+      <div className="landing-4">
+        <div className="landing-4-text">
+        Our Products
+        </div>
+        <div className="landing-4-images">
+          <div className="landing-4-image1"></div>
+          <div className="landing-4-image2"></div>
+          <div className="landing-4-image3"></div>
+          <div className="landing-4-image4"></div>
+          <div className="landing-4-image4"></div>
+          <div className="landing-4-image5"></div>
         </div>
       </div>
       <div className="landing3">
@@ -86,30 +100,7 @@ export default function About() {
           })}
         </div>
       </div>
-      <footer>
-        <div className="quick-links">
-            <ul>
-                <li><a>Home</a></li>
-                <li><a>About</a></li>
-                <li><a>Contact</a></li>
-
-            </ul>
-        </div>
-        <div className="contact-us">
-            <h3>Contact us at</h3>
-            <p>xyz@gmail.com</p>
-            <p>+91- 1234457691</p>
-        </div>
-        <div className="address">
-        <h3>Office address</h3>
-        <p>Geomatics Dept.
-IIT Roorkee
-Roorkee
-Uttarakhand-247667</p>
-        </div>
-        
-      </footer>
-      <div className="orange"></div>
+      <Footer></Footer>
     </div>
   );
 }

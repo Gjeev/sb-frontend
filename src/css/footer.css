@@ -1,0 +1,34 @@
+
+footer {
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 4em 0;
+    background-color: white;
+    color: black;
+  }
+  footer .quick-links {
+    padding: 2em;
+  }
+  footer .quick-links li {
+    padding: 0.5em;
+  }
+  .orange {
+    width: 100%;
+    height: 24px;
+    background-color: #ea5d53;
+  }
+  .contact-us {
+    padding: 2em;
+  }
+  .contact-us h3,
+  p {
+    padding-bottom: 1em;
+  }
+  .address {
+    width: 20%;
+  }
+  .address h3 {
+    padding-bottom: 1em;
+  }

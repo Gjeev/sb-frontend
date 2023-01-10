@@ -1,4 +1,5 @@
 import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
 import Body from "./pages/home/Body.jsx";
 import Login from './pages/user/Login.jsx';
 import SignUp from "./pages/user/SignUp.jsx";
@@ -9,7 +10,7 @@ import {BrowserRouter as Router,Route,Switch} from "react-router-dom";
 import Driver from "driver.js";
 import { useEffect } from "react";
 import 'driver.js/dist/driver.min.css';
-
+import Contact from "./pages/contact/Contact.jsx";
 export default function App()
 {
     useEffect(() => {
@@ -69,7 +70,7 @@ driver.defineSteps([
 ]);
 
 // Start the introduction
-if(window.location.href == "http://localhost:5174/"){
+if(window.location.href == "http://localhost:5173/"){
     driver.start();
 }
     },[]); 
@@ -95,6 +96,11 @@ if(window.location.href == "http://localhost:5174/"){
                 <SignUp />
                 </Route>
 
+                <Route exact path="/contact">
+                  <Header />
+                  <Contact></Contact>
+                  <Footer />
+                </Route>
                 
 
             </Switch>

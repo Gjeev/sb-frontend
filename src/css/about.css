@@ -1,7 +1,11 @@
-.about {
+body {
+  padding: 0;
+  margin: 0;
   width: 100vw;
-  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
+
 .landing {
   height: calc(100vh - 4em);
   width: 100vw;
@@ -109,8 +113,8 @@
 .landing3 {
   background-color: #000000;
   color: white;
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +122,7 @@
 .landing3-ellipse {
   width: 428px;
 }
-.landing3-ellipse svg{
+.landing3-ellipse svg {
   position: relative;
   left: -10px;
 }
@@ -130,13 +134,18 @@
 }
 .landing3-boxes {
   width: calc(100vw - 428px);
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 5rem;
+  /* display: grid;
   grid-template-columns: repeat(2, 0.35fr);
   column-gap: 5em;
   row-gap: 7em;
   align-items: center;
   justify-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 .landing3-box {
   border: 1px solid rgba(218, 218, 218, 0.8);
@@ -151,35 +160,4 @@
 .landing3-box a {
   color: rgba(234, 93, 83, 0.9);
 }
-footer{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 4em 0;
-}
-footer .quick-links{
-  padding: 2em;
 
-}
-footer .quick-links li{
-  padding: 0.5em;
-}
-.orange {
-  width: 100%;
-  height: 24px;
-  background-color: #EA5D53;
-
-}
-.contact-us {
-  padding: 2em;
-
-}
-.contact-us h3,p{
-  padding-bottom: 1em;
-}
-.address{
-  width: 20%;
-}
-.address h3{
-  padding-bottom: 1em;
-}
