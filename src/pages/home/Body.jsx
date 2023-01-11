@@ -6,6 +6,7 @@ import ZoomControls from "@tomtom-international/web-sdk-plugin-zoomcontrols";
 import PanControls from "@tomtom-international/web-sdk-plugin-pancontrols";
 import { services } from "@tomtom-international/web-sdk-services";
 import SearchBox from "@tomtom-international/web-sdk-plugin-searchbox";
+import { data } from "../../data/data.js";
 // import SearchMarkersManager,{ handleResultSelection, handleResultsFound, handleResultClearing } from "./Search.js";
 
 export default function Body() {
@@ -13,6 +14,7 @@ export default function Body() {
   const [map, setMap] = useState();
   const [center, setCenter] = useState([78, 21]);
   const [coords, setCoords] = useState(center);
+  const [gridID,setGridID] = useState([]);
 
   //options for search box
   var options = {
@@ -190,6 +192,39 @@ export default function Body() {
     ttSearchBox.on("tomtom.searchbox.resultfocused", handleResultSelection);
     ttSearchBox.on("tomtom.searchbox.resultscleared", handleResultClearing);
     map.addControl(ttSearchBox, "top-right");
+
+    map.on("click","gridOverlay",(e) => {
+      const id = e.features[0].properties.id;
+      setGridID([...gridID,id]);
+      const feature = data.features.filter(feature => feature.properties.id == id);
+      const coordinates = feature[0].geometry.coordinates[0][0];
+      console.log(feature[0].geometry.coordinates[0][0]);
+      map.addLayer({
+        'id': `popUp${id}`,
+        'type': 'fill',
+        'source': {
+            'type': 'geojson',
+            'data': {
+                'type': 'Feature',
+                'geometry': {
+                    'type': 'Polygon',
+                    'coordinates': [[coordinates[0],
+                        coordinates[1],
+                        coordinates[2],
+                        coordinates[3],
+                        coordinates[0]]]
+                }
+            }
+        },
+        'layout': {},
+        'paint': {
+            'fill-color': "#A4BFC1",
+            'fill-opacity': 1,
+            'fill-outline-color': "#A4BFC1"
+        }
+    });
+    });
+
   }, []);
   
   
@@ -198,7 +233,6 @@ export default function Body() {
     <>
       <div className="main-content">
         <Panel map={map}></Panel>
-        {/* <Search map={map}/> */}
         <div className="map" ref={mapElement}></div>
         <div className="coordinates" id="first">
           <center>

@@ -22,3 +22,7 @@
 .left-panel li:hover,li:focus {
     background-color: #234548;
 }
+.progress-close{
+    height: 0;
+    overflow: hidden;
+}
