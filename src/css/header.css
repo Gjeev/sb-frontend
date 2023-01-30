@@ -82,17 +82,19 @@ a:focus {
 .buttons-header .buttonhome {
   background-color: #016567;
   color: white;
-  border-radius: 8px;
+  border-radius: 12px;
+  height: 2rem;
+  /* width: 100px; */
   border: none;
-  padding: 1em;
-  height: auto;
+  padding: 1.3rem;
+  /* height: auto; */
 }
 .buttons-header .buttonhome:hover,
 .buttonhome:focus {
   cursor: pointer;
   background-color: #028a8d;
 }
-.buttonhome a{
+.buttonhome a {
   color: white;
   text-decoration: none;
 }
@@ -103,5 +105,3 @@ a:focus {
 .icons:hover {
   background-color: rgb(175, 175, 175);
 }
-
-
