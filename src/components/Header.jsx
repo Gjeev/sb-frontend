@@ -57,7 +57,7 @@ export default function Header() {
                   alt={user.result.name}
                   src={user.result.picture}
                 >
-                  {user.result.name.charAt(0).toUpperCase()}
+                  {/* {user.result.name.charAt(0).toUpperCase()} */}
                 </Avatar>
               </div>
               <div className="icons">
@@ -74,7 +74,7 @@ export default function Header() {
               <Button className="buttonhome" component={Link} to="/login">
                 LOG IN
               </Button>
-              <Button className="buttonhome" component={Link} to="/signup">
+              <Button className="buttonhome" component={Link} to="/sign-up">
                 SIGN UP
               </Button>
             </div>
