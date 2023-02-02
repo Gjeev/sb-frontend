@@ -1,5 +1,5 @@
 import "../../css/body.css";
-import Panel from "../../components/Panel";
+import Panel from "../../components/panel/Panel";
 import { coordinatesGeocoder } from "./SearchBox";
 import { fog } from "../../data/fog";
 import mapboxgl from "mapbox-gl";
@@ -18,6 +18,8 @@ export default function Body() {
   const [lat, setLat] = useState(start.center[1]);
   const [zoom, setZoom] = useState(1);
   const [animationEnd, setAnimationEnd] = useState(false);
+
+  const [gridId, setGridId] = useState([]);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -91,10 +93,12 @@ export default function Body() {
       getLocation();
     }
   }, [animationEnd]);
+  
+
   return (
     <>
       <div className="main-content">
-        <Panel></Panel>
+        <Panel map={map.current} gridId={gridId} setGridId={setGridId}></Panel>
         <div ref={mapContainer} className="map"></div>
       </div>
     </>
