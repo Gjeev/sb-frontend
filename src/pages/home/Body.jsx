@@ -1,9 +1,10 @@
 import "../../css/body.css";
-import Panel from "../../components/Panel";
+import Panel from "../../components/panel/Panel";
 import { coordinatesGeocoder } from "./SearchBox";
 import { fog } from "../../data/fog";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
+import Icon from "../../components/svg";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
@@ -18,6 +19,9 @@ export default function Body() {
   const [lat, setLat] = useState(start.center[1]);
   const [zoom, setZoom] = useState(1);
   const [animationEnd, setAnimationEnd] = useState(false);
+
+  const [gridId, setGridId] = useState([]);
+  const [layerLoad, setLayerLoad] = useState(false);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -49,7 +53,7 @@ export default function Body() {
       // When this animation is complete, it calls a 'moveend' event.
       map.current.easeTo({ center, duration: 10000, easing: (n) => n });
     }
-    // spinGlobe();
+    spinGlobe();
     map.current.on("moveend", () => {
       setAnimationEnd(true);
     });
@@ -91,11 +95,23 @@ export default function Body() {
       getLocation();
     }
   }, [animationEnd]);
+
   return (
     <>
       <div className="main-content">
-        <Panel></Panel>
+        <Panel
+          map={map.current}
+          gridId={gridId}
+          setGridId={setGridId}
+          layerLoad={layerLoad}
+          setLayerLoad={setLayerLoad}
+        ></Panel>
         <div ref={mapContainer} className="map"></div>
+        {layerLoad && (
+          <div className="progress-spinner">
+            <Icon fill="#ffffff" stroke="#ffffff"></Icon>
+          </div>
+        )}
       </div>
     </>
   );

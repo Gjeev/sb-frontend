@@ -8,7 +8,7 @@ body {
   width: 100vw;
   height: calc(100vh - 4em);
   display: flex;
-  background-color: #1a2027;
+  background-color: #262b32;
   color: white;
 }
 .contact-left {
