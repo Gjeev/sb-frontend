@@ -51,7 +51,7 @@ export default function Header() {
           <>
             <div className="buttons-information-header">
               <div className="user-name">{user.result.name}</div>
-              <div className="user-image icons">
+              <div className="user-image picture-user">
                 <Avatar
                   sx={{ bgcolor: deepOrange[500] }}
                   alt={user.result.name}
@@ -74,7 +74,7 @@ export default function Header() {
               <Button className="buttonhome" component={Link} to="/login">
                 LOG IN
               </Button>
-              <Button className="buttonhome" component={Link} to="/sign-up">
+              <Button className="buttonhome" component={Link} to="/signUp">
                 SIGN UP
               </Button>
             </div>

@@ -2,11 +2,14 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
-
+import { useEffect } from "react";
+import { ThreeDots } from "react-loader-spinner";
 export default function List4(props) {
   const map = props.map;
   const gridId = props.gridId;
   const setGridId = props.setGridId;
+  const layerLoad = props.layerLoad;
+  const setLayerLoad = props.setLayerLoad;
 
   //controls closing of layer menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -21,6 +24,7 @@ export default function List4(props) {
   //controls adding & removing of india layer
   const handleIndiaLayerClick = () => {
     addIndiaLayer();
+    setLayerLoad(true);
     setAnchorEl(null);
   };
   function addIndiaLayer() {
@@ -40,6 +44,16 @@ export default function List4(props) {
         "fill-outline-color": "#A4BFC1",
       },
     });
+
+    //we will check if map has finished rendering the source on the map
+    //using the idle event because even if the source is loaded
+    //it takes more time to render it on the map.
+    map.on("idle", () => {
+      if (map.getSource("india") && map.isSourceLoaded("india")) {
+        setLayerLoad(false);
+      }
+    });
+    
     //create popups on clicked grids
     map.on("click", "india-layer", (e) => {
       let id = e.features[0].properties.id;

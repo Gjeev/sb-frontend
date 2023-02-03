@@ -8,10 +8,12 @@ export default function Panel(props) {
   const map = props.map;
   const gridId = props.gridId;
   const setGridId = props.setGridId;
+  const layerLoad = props.layerLoad;
+  const setLayerLoad = props.setLayerLoad;
   return (
     <div className="left-panel">
       <ul>
-        <List4 map={map} gridId={gridId} setGridId={setGridId} />
+        <List4 map={map} gridId={gridId} setGridId={setGridId} layerLoad={layerLoad} setLayerLoad={setLayerLoad}/>
         <List3 map={map} />
         <List2 map={map} gridId={gridId} setGridId={setGridId} />
         <li className="list">

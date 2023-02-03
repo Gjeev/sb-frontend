@@ -22,9 +22,13 @@ header {
   height: 61px;
   background-image: url("/images/logo.svg");
 }
-.icons {
+.picture-user{
   width: 41px;
   height: 41px;
+}
+.icons img{
+  width: 30px;
+  height: 30px;
 }
 .nav-items {
   height: 100%;
