@@ -72,7 +72,6 @@ export const signup =
   (loginData, history, setInvalidOTP, closeOTPSendAndDisplayBox) =>
   async (dispatch) => {
     try {
-      console.log(loginData);
       const { temporary } = await api.validateotp(loginData);
       closeOTPSendAndDisplayBox();
       const { data } = await api.signUp(loginData);

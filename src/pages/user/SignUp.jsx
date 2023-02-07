@@ -48,16 +48,11 @@ export default function SignUp() {
   };
   const validSignup = () => {
     try {
-      dispatch(
-        checkIfUserExists(
-          formData,
-          handleUsernameAlreadyExists,
-          OTPSendAndDisplayBox
-        )
-      );
-    } catch (error) {
+      dispatch(checkIfUserExists(formData, handleUsernameAlreadyExists, OTPSendAndDisplayBox));
+  }
+  catch (error) {
       console.log(error);
-    }
+  }
   };
   const OTPSendAndDisplayBox = async () => {
     setOtpInputDisplay(true);
@@ -67,7 +62,7 @@ export default function SignUp() {
     setOtpInputDisplay(false);
   };
   const handleSubmitOTP = () => {
-    console.log("here");
+    // console.log("here");
     setInvalidOTP(false);
     const loginData = { ...formData, otp };
     try {
@@ -85,8 +80,7 @@ export default function SignUp() {
     if (formData.password != formData.confirmPassword) {
       handlePasswordsNotMatching();
     } else {
-      dispatch(signup(formData, history));
-      dispatch(signup(formData, history, handleUsernameAlreadyExists));
+      validSignup();
     }
   };
 
@@ -168,8 +162,9 @@ export default function SignUp() {
               variant="contained"
               color="primary"
               sx={{ mb: 3 }}
+              disabled
             >
-              "SIGN UP"
+              SIGN UP
             </Button>
           </form>
         </div>
