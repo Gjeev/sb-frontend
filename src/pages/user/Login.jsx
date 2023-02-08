@@ -147,6 +147,7 @@ export default function Login() {
             variant="contained"
             color="primary"
             sx={{ mb: 3 }}
+            disabled
           >
             LOG IN
           </Button>

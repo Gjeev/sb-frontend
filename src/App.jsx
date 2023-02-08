@@ -92,11 +92,15 @@ export default function App() {
           </Route>
 
           <Route exact path="/login">
-            <Login />
+          <Header />
+                <Body/>
+                <Login/>
           </Route>
 
           <Route exact path="/signUp">
-            <SignUp />
+          <Header />
+                <Body/>
+                <SignUp/>
           </Route>
 
           <Route exact path="/contact">
