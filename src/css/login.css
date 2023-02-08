@@ -74,3 +74,37 @@ h1 {
   display: flex;
   justify-content: center;
 }
+
+.otpoverlay{
+  position: absolute;
+  height: calc(100vh);
+  width: calc(100vw);
+  background: none;
+  backdrop-filter: blur(10px);
+  z-index: 10;
+  display: flex;
+}
+
+.otpbox{
+  
+  margin: auto;
+  background-color: white;
+  z-index: 11;
+  height: auto;
+  width: 400px;
+  border-radius: 10px;
+  padding:3rem;
+  text-align: center;
+  
+}
+
+.otpheading{
+  font-size: larger;
+}
+
+
+.otp{
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}

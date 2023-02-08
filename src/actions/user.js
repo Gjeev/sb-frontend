@@ -40,7 +40,7 @@ export const checkIfUserExists =
   (formData, setUsernameAlreadyExists, continueToOtp) => async (dispatch) => {
     try {
       // console.log(req.body);
-      console.log(formData);
+      // console.log(formData);
       const { data } = await api.userExistsCheck(formData);
       continueToOtp();
       // res.status(200).json({message:USER_VALID_FOR_SIGNUP});
@@ -61,7 +61,7 @@ export const checkIfUserExists =
   };
 export const verifyCredentials = (formData) => async (dispatch) => {
   try {
-    console.log(formData);
+    // console.log(formData);
     const { data } = await api.otpverify(formData);
   } catch (error) {
     console.log(error);
@@ -75,6 +75,8 @@ export const signup =
       const { temporary } = await api.validateotp(loginData);
       closeOTPSendAndDisplayBox();
       const { data } = await api.signUp(loginData);
+      // console.log(loginData);
+      // console.log(data);
       dispatch({ type: LOGIN, data });
       history.push("/");
     } catch (error) {

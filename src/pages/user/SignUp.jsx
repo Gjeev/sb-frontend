@@ -3,7 +3,7 @@ import Input from "./Input";
 import { useState } from "react";
 import { Button, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { signup } from "../../actions/user";
+import { signup, verifyCredentials, checkIfUserExists } from "../../actions/user";
 import { useHistory } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import OtpInput from 'react18-input-otp';
@@ -65,6 +65,7 @@ export default function SignUp() {
     // console.log("here");
     setInvalidOTP(false);
     const loginData = { ...formData, otp };
+    // console.log(loginData);
     try {
       dispatch(
         signup(loginData, history, handleInvalidOTP, closeOTPSendAndDisplayBox)
