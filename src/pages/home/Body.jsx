@@ -5,6 +5,7 @@ import { fog } from "../../data/fog";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
+
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
@@ -17,10 +18,12 @@ export default function Body() {
 
   const [lng, setLng] = useState(start.center[0]);
   const [lat, setLat] = useState(start.center[1]);
-  const [zoom, setZoom] = useState(1);
   const [animationEnd, setAnimationEnd] = useState(false);
 
   const [gridId, setGridId] = useState([]);
+  const onGridIdChange = (changedArray) => {
+    setGridId(changedArray);
+  };
   const [layerLoad, setLayerLoad] = useState(false);
 
   useEffect(() => {
@@ -32,9 +35,11 @@ export default function Body() {
       center: start.center,
       zoom: start.zoom,
     });
+
     map.current.on("load", () => {
       map.current.setFog(fog);
     });
+
     function spinGlobe() {
       const zoom = map.current.getZoom();
       const secondsPerRevolution = 120;
@@ -53,16 +58,19 @@ export default function Body() {
       // When this animation is complete, it calls a 'moveend' event.
       map.current.easeTo({ center, duration: 10000, easing: (n) => n });
     }
+
     spinGlobe();
+
     map.current.on("moveend", () => {
       setAnimationEnd(true);
     });
-    // changes long, lat & zoom on map movement
-    map.current.on("move", () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
+
+    //displays the coordinates of the mouse pointer
+    map.current.on("mousemove", (e) => {
+      setLng(e.lngLat.lng.toFixed(4));
+      setLat(e.lngLat.lat.toFixed(4));
     });
+
     // adding search control to the map
     map.current.addControl(
       new MapboxGeocoder({
@@ -102,11 +110,15 @@ export default function Body() {
         <Panel
           map={map.current}
           gridId={gridId}
-          setGridId={setGridId}
+          onGridIdChange={onGridIdChange}
           layerLoad={layerLoad}
           setLayerLoad={setLayerLoad}
         ></Panel>
-        <div ref={mapContainer} className="map"></div>
+        <div ref={mapContainer} className="map">
+          <div className="information">
+            Longitude: {lng} | Latitude: {lat}
+          </div>
+        </div>
         {layerLoad && (
           <div className="progress-spinner">
             <Icon fill="#ffffff" stroke="#ffffff"></Icon>

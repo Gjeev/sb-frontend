@@ -5,10 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-export default function List2(props) {
-  const map = props.map;
-  const gridId = props.gridId;
-  const setGridId = props.setGridId;
+export default function List2({ map, gridId, onGridIdChange}) {
 
   //controls closing of layer menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -25,7 +22,7 @@ export default function List2(props) {
     if (map.getLayer(`popUp${id}`)) {
       map.removeLayer(`popUp${id}`);
     }
-    setGridId(gridId.filter((grid) => grid != id));
+    onGridIdChange(gridId.filter((grid) => grid != id));
   }
 
   // adds selected grids to menu
