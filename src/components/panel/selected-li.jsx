@@ -47,7 +47,7 @@ export default function List2({ map, gridId, onGridIdChange}) {
   ));
   return (
     <>
-      <li id="third" className="list" onClick={handleGridsLiOpen}>
+      <li id="third" className="list select-list" onClick={handleGridsLiOpen}>
         <Tooltip placement="top" title="selected grids">
           <img src="/images/panelicon1.png" />
         </Tooltip>

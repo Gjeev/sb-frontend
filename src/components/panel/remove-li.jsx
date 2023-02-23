@@ -22,7 +22,7 @@ export default function List3(props) {
 
   return (
     <>
-      <li className="list" onClick={handleDelLiOpen}>
+      <li className="list delete-list" onClick={handleDelLiOpen}>
         <Tooltip placement="top" title="delete grids">
           <img src="/images/panelicon3.png" />
         </Tooltip>

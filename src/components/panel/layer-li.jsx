@@ -140,7 +140,7 @@ export default function List4({
 
   return (
     <>
-      <li id="second" className="list" onClick={handleLayerLiOpen}>
+      <li id="second" className="list layer-li" onClick={handleLayerLiOpen}>
         <Tooltip placement="top" title="show layers">
           <img src="/images/panelicon4.png" />
         </Tooltip>

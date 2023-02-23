@@ -5,7 +5,7 @@ import { fog } from "../../data/fog";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
-
+// https://studio.mapbox.com/styles/jemm/cle5ppqxd003y01qmqn05pwpf/edit/#2.33/26.37/81.88
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
@@ -13,7 +13,7 @@ export default function Body() {
   const map = useRef(null);
   const start = {
     center: [-105, 15],
-    zoom: 1,
+    zoom: 0,
   };
 
   const [lng, setLng] = useState(start.center[0]);
@@ -30,7 +30,7 @@ export default function Body() {
     if (map.current) return; // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/mapbox/satellite-streets-v12",
+      style: "mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf",
       projection: "globe",
       center: start.center,
       zoom: start.zoom,
@@ -52,11 +52,11 @@ export default function Body() {
         const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
         distancePerSecond *= zoomDif;
       }
-      const center = [80, 29];
+      const center = [78, 24];
       center.lng -= distancePerSecond;
       // Smoothly animate the map over one second.
       // When this animation is complete, it calls a 'moveend' event.
-      map.current.easeTo({ center, duration: 10000, easing: (n) => n });
+      map.current.easeTo({ center, zoom: 4.5, duration: 10000, easing: (n) => n });
     }
 
     spinGlobe();
@@ -82,7 +82,7 @@ export default function Body() {
         reverseGeocode: true,
       })
     );
-  }, [map.current]);
+  }, []);
   useEffect(() => {
     if (animationEnd) {
       function getLocation() {
@@ -114,10 +114,9 @@ export default function Body() {
           layerLoad={layerLoad}
           setLayerLoad={setLayerLoad}
         ></Panel>
-        <div ref={mapContainer} className="map">
-          <div className="information">
-            Longitude: {lng} | Latitude: {lat}
-          </div>
+        <div ref={mapContainer} className="map"></div>
+        <div className="information">
+          Latitude: {lat} | Longitude: {lng}
         </div>
         {layerLoad && (
           <div className="progress-spinner">

@@ -41,7 +41,7 @@
   font-family: monospace;
   z-index: 2;
   position: absolute;
-  top: 0;
+  top: 5em;
   left: 4rem;
   margin: 12px;
   border-radius: 4px;
