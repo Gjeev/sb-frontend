@@ -1,7 +1,6 @@
 .login-page {
   position: absolute;
   max-width: calc(626px + 449px);
-  /* height:calc(75vh); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,8 +10,18 @@
   background-color: white;
   border-radius: 7px;
   z-index: 1000000000;
+  animation: drop 1s;
+}
+@keyframes drop {
+  0% {
+    top: 0%;
+  }
+  100% {
+    top: 50%;
+  }
 }
 .globe {
+  padding: 2rem;
   background: linear-gradient(
     180deg,
     rgba(49, 155, 204, 0.7) 0%,
@@ -64,18 +73,18 @@ h1 {
   width: inherit;
   font-family: "Inter";
 }
-.red-error-login{
-  color: red ;
+.red-error-login {
+  color: red;
   width: 100%;
   text-align: center;
   font-size: small;
 }
-#buttonDiv{
+#buttonDiv {
   display: flex;
   justify-content: center;
 }
 
-.otpoverlay{
+.otpoverlay {
   position: absolute;
   height: calc(100vh);
   width: calc(100vw);
@@ -85,25 +94,22 @@ h1 {
   display: flex;
 }
 
-.otpbox{
-  
+.otpbox {
   margin: auto;
   background-color: white;
   z-index: 11;
   height: auto;
   width: 400px;
   border-radius: 10px;
-  padding:3rem;
+  padding: 3rem;
   text-align: center;
-  
 }
 
-.otpheading{
+.otpheading {
   font-size: larger;
 }
 
-
-.otp{
+.otp {
   margin: auto;
   display: flex;
   justify-content: center;
