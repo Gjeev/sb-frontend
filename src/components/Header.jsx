@@ -4,6 +4,7 @@ import { Link, useHistory, useLocation } from "react-router-dom";
 import { Button, Avatar } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import { logout } from "../actions/user";
+import { createPdf } from "../actions/actions";
 import { useDispatch } from "react-redux";
 
 export default function Header() {
@@ -25,6 +26,10 @@ export default function Header() {
     dispatch(logout(history, handleUserLogout));
   };
 
+  const handlePDFCheck=()=>{
+    dispatch(createPdf());
+  }
+
   return (
     <>
       <header>
@@ -42,8 +47,9 @@ export default function Header() {
             <li>
               <a href="/about">About</a>
             </li>
+            
             <li>
-              <a href="/contact">Contact</a>
+              <a href="/contactus">Contact Us</a>
             </li>
           </ul>
         </div>
@@ -66,6 +72,9 @@ export default function Header() {
               <Button className="buttonhome" onClick={handleLogoutButtonClick}>
                 LOG OUT
               </Button>
+              {/* <Button className="buttonhome" onClick={handlePDFCheck}>
+                PDF check
+              </Button> */}
             </div>
           </>
         ) : (

@@ -10,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // import { useEffect } from "react";
 // import "driver.js/dist/driver.min.css";
 import Contact from "./pages/contact/Contact.jsx";
+import ContactUs from "./pages/contact/ContactUs.jsx";
 export default function App() {
   // useEffect(() => {
   //   const driver = new Driver();
@@ -103,9 +104,10 @@ export default function App() {
                 <SignUp/>
           </Route>
 
-          <Route exact path="/contact">
+          
+          <Route exact path="/contactus">
             <Header />
-            <Contact></Contact>
+            <ContactUs/>
             <Footer />
           </Route>
         </Switch>

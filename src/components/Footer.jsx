@@ -20,8 +20,8 @@ export default function Footer()
         <div className="address">
         <h3>Office address</h3>
         <p>Geomatics Dept.
-IIT Roorkee
-Roorkee
+IIT Roorkee<br/>
+Roorkee<br/>
 Uttarakhand-247667</p>
         </div>
         
