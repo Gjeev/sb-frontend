@@ -10,7 +10,25 @@ footer {
   }
   footer .quick-links {
     padding: 2em;
+    
   }
+  @media only screen and (max-width: 900px) {
+    footer {
+        flex-direction: column;
+    }
+    .address {
+      width: 80% !important;
+      text-align: center;
+    }
+    .contact-us {
+      padding: 0 !important;
+    }
+    .quick-links {
+      padding: 0 !important;
+      
+      
+    }
+}
   footer .quick-links li {
     padding: 0.5em;
   }

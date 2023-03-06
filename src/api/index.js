@@ -7,8 +7,8 @@ const API = axios.create({ baseURL: base });
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('profile')) {
     req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem('profile')).token}`;
-    console.log(req.headers.Authorization);
-    console.log(JSON.parse(localStorage.getItem('profile')));
+    // console.log(req.headers.Authorization);
+    // console.log(JSON.parse(localStorage.getItem('profile')));
   }
 
   return req;
@@ -19,3 +19,5 @@ export const signUp = (formData) => API.post('/user/signup', formData);
 export const otpverify=(formData) => API.post('/user/otpverify',formData);
 export const userExistsCheck=(formData) => API.post('/user/userexistscheck',formData);
 export const validateotp=(loginData) => API.post('/user/validateotp',loginData);
+export const createPdf=() => API.post('/action/createPdf');
+export const sendfeedback=(contactUsFormData)=> API.post('/action/sendfeedback',contactUsFormData);
