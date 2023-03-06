@@ -2,14 +2,18 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import { useState } from "react";
 import Tooltip from "@mui/material/Tooltip";
-import { useEffect } from "react";
-import { ThreeDots } from "react-loader-spinner";
-export default function List4(props) {
-  const map = props.map;
-  const gridId = props.gridId;
-  const setGridId = props.setGridId;
-  const layerLoad = props.layerLoad;
-  const setLayerLoad = props.setLayerLoad;
+import { grid } from "@mui/system";
+import Snackbar from "@mui/material/Snackbar";
+
+export default function List4({
+  map,
+  gridId,
+  onGridIdChange,
+  layerLoad,
+  setLayerLoad
+}) {
+  //localGridId is used to store the id of the grids that are clicked
+  let localGridId = [...gridId];
 
   //controls closing of layer menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -21,6 +25,40 @@ export default function List4(props) {
     setAnchorEl(null);
   };
 
+  //alerts the user about the zooming in for optimised loading times
+  const [zoomAlert, setZoomAlert] = useState(false);
+  const handleZoomAlertClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setZoomAlert(false);
+};
+
+  //controls adding & removing of binary mask layer
+  // const handleBinaryMaskLayerClick = () => {
+  //   addBinaryMaskLayer();
+  //   console.log("clicked");
+  //   setLayerLoad(true);
+  //   setAnchorEl(null);
+  // };
+  // function addBinaryMaskLayer() {
+  //   map.addSource("binaryMask", {
+  //     type: "geojson",
+  //     data: "https://gjeev.github.io/layers/binarymask.geojson",
+  //   });
+
+  //   map.addLayer({
+  //     id: "binaryMask-layer",
+  //     type: "symbol",
+  //     source: "binaryMask",
+  //     layout: {
+  //       "icon-allow-overlap": true,
+  //       "icon-image": "circle-15",
+  //       "icon-size": 0.5,
+  //     },
+  //   });
+  // }
+
   //controls adding & removing of india layer
   const handleIndiaLayerClick = () => {
     addIndiaLayer();
@@ -28,6 +66,10 @@ export default function List4(props) {
     setAnchorEl(null);
   };
   function addIndiaLayer() {
+    if (map.getZoom() < 12) {
+      setZoomAlert(true);
+      map.flyTo({ zoom: 14 });
+    }
     map.addSource("india", {
       type: "geojson",
       // Use a URL for the value for the `data` property.
@@ -53,46 +95,52 @@ export default function List4(props) {
         setLayerLoad(false);
       }
     });
-    
+
     //create popups on clicked grids
     map.on("click", "india-layer", (e) => {
+      // setLayerLoad(true);
       let id = e.features[0].properties.id;
-      setGridId((gridId) => [...gridId, id]);
-      let coordinates = e.features[0].geometry.coordinates[0];
-      map.addLayer({
-        id: `popUp${id}`,
-        type: "fill",
-        source: {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            geometry: {
-              type: "Polygon",
-              coordinates: [
-                [
-                  coordinates[0],
-                  coordinates[1],
-                  coordinates[2],
-                  coordinates[3],
-                  coordinates[4],
+      if (localGridId.includes(id)) {
+        console.log("this grid already exists");
+      } else {
+        localGridId.push(id);
+        onGridIdChange(localGridId);
+        let coordinates = e.features[0].geometry.coordinates[0];
+        map.addLayer({
+          id: `popUp${id}`,
+          type: "fill",
+          source: {
+            type: "geojson",
+            data: {
+              type: "Feature",
+              geometry: {
+                type: "Polygon",
+                coordinates: [
+                  [
+                    coordinates[0],
+                    coordinates[1],
+                    coordinates[2],
+                    coordinates[3],
+                    coordinates[4],
+                  ],
                 ],
-              ],
+              },
             },
           },
-        },
-        layout: {},
-        paint: {
-          "fill-color": "#A4BFC1",
-          "fill-opacity": 1,
-          "fill-outline-color": "#A4BFC1",
-        },
-      });
+          layout: {},
+          paint: {
+            "fill-color": "#A4BFC1",
+            "fill-opacity": 1,
+            "fill-outline-color": "#A4BFC1",
+          },
+        });
+      }
     });
   }
 
   return (
     <>
-      <li id="second" className="list" onClick={handleLayerLiOpen}>
+      <li id="second" className="list layer-li" onClick={handleLayerLiOpen}>
         <Tooltip placement="top" title="show layers">
           <img src="/images/panelicon4.png" />
         </Tooltip>
@@ -115,8 +163,15 @@ export default function List4(props) {
         <MenuItem onClick={handleIndiaLayerClick}>
           Add India Grid Layer
         </MenuItem>
+
         <MenuItem onClick={handleLayerLiClose}>Add Binary Mask Layer</MenuItem>
       </Menu>
+      <Snackbar
+        open={zoomAlert}
+        autoHideDuration={5000}
+        message="the map will zoom in order to decrease loading times!"
+        onClose={handleZoomAlertClose}
+      />
     </>
   );
 }

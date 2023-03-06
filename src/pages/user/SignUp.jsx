@@ -163,7 +163,6 @@ export default function SignUp() {
               variant="contained"
               color="primary"
               sx={{ mb: 3 }}
-              disabled
             >
               SIGN UP
             </Button>
