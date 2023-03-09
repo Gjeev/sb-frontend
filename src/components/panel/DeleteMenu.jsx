@@ -2,27 +2,26 @@ import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-export default function List3(props) {
-  const map = props.map;
+export default function DeleteMenu({map}) {
 
   //controls closing of layer menu
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
-    const handleDelLiOpen = (event) => {
+    const handleDelMenuOpen = (event) => {
       setAnchorEl(event.currentTarget);
     };
     const handlDelLiClose = () => {
       setAnchorEl(null);
     };
-    const handlDelIndiaLayer = () => {
+    const handlDelSCLayer = () => {
       setAnchorEl(null);
-      map.removeLayer("india-layer");
-      map.removeSource("india");
+      map.removeLayer("sugarcane-layer");
+      map.removeSource("sugarcane");
     };
 
   return (
     <>
-      <li className="list delete-list" onClick={handleDelLiOpen}>
+      <li className="list delete-list" onClick={handleDelMenuOpen}>
         <Tooltip placement="top" title="delete grids">
           <img src="/images/panelicon3.png" />
         </Tooltip>
@@ -42,10 +41,9 @@ export default function List3(props) {
           horizontal: -10,
         }}
       >
-        <MenuItem onClick={handlDelIndiaLayer}>
-          Remove India Grid Layer
+        <MenuItem onClick={handlDelSCLayer}>
+          Remove Sugarcane Binary Mask UP
         </MenuItem>
-        <MenuItem onClick={handlDelLiClose}>Remove Binary Mask Layer</MenuItem>
       </Menu>
     </>
   );

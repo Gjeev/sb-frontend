@@ -1,146 +1,117 @@
+import Tooltip from "@mui/material/Tooltip";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import RiceBowlIcon from "@mui/icons-material/RiceBowl";
+import ListItemText from "@mui/material/ListItemText";
+import ListItemIcon from "@mui/material/ListItemIcon";
 import { useState } from "react";
-import Tooltip from "@mui/material/Tooltip";
-import { grid } from "@mui/system";
-import Snackbar from "@mui/material/Snackbar";
+import ParkIcon from "@mui/icons-material/Park";
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
 
-export default function List4({
-  map,
-  gridId,
-  onGridIdChange,
-  layerLoad,
-  setLayerLoad
-}) {
-  //localGridId is used to store the id of the grids that are clicked
-  let localGridId = [...gridId];
+export default function LayerMenu({ map }) {
 
-  //controls closing of layer menu
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleLayerLiOpen = (event) => {
-    setAnchorEl(event.currentTarget);
+  //controls snakcbar
+  const [openSB, setOpenSB] = useState(false);
+  const handleClick = () => {
+    setOpenSB(true);
   };
-  const handleLayerLiClose = () => {
-    setAnchorEl(null);
-  };
-
-  //alerts the user about the zooming in for optimised loading times
-  const [zoomAlert, setZoomAlert] = useState(false);
-  const handleZoomAlertClose = (event, reason) => {
+  const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
     }
-    setZoomAlert(false);
-};
+    setOpenSB(false);
+  };
 
-  //controls adding & removing of binary mask layer
-  // const handleBinaryMaskLayerClick = () => {
-  //   addBinaryMaskLayer();
-  //   console.log("clicked");
-  //   setLayerLoad(true);
-  //   setAnchorEl(null);
-  // };
-  // function addBinaryMaskLayer() {
-  //   map.addSource("binaryMask", {
-  //     type: "geojson",
-  //     data: "https://gjeev.github.io/layers/binarymask.geojson",
-  //   });
+  const action = (
+    <>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </>
 
-  //   map.addLayer({
-  //     id: "binaryMask-layer",
-  //     type: "symbol",
-  //     source: "binaryMask",
-  //     layout: {
-  //       "icon-allow-overlap": true,
-  //       "icon-image": "circle-15",
-  //       "icon-size": 0.5,
-  //     },
-  //   });
-  // }
-
-  //controls adding & removing of india layer
-  const handleIndiaLayerClick = () => {
-    addIndiaLayer();
-    setLayerLoad(true);
+  );
+  //controls closing of layer menu
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
     setAnchorEl(null);
   };
-  function addIndiaLayer() {
-    if (map.getZoom() < 12) {
-      setZoomAlert(true);
-      map.flyTo({ zoom: 14 });
-    }
-    map.addSource("india", {
-      type: "geojson",
-      // Use a URL for the value for the `data` property.
-      data: "https://gjeev.github.io/layers/india.json",
-    });
 
+  const handleRiceLayerPunjab = () => {
+    setAnchorEl(null);
+    handleClick();
+    map.addSource("rice", {
+      type: "image",
+      url: "https://gjeev.github.io/layers/PB_onlyrice.png",
+      coordinates: [
+        [73.8707565171, 32.5761012214],
+        [76.928, 32.576],
+        [76.92937, 29.546575],
+        [73.876018, 29.547445],
+      ],
+    });
     map.addLayer({
-      id: "india-layer",
-      type: "fill",
-      source: "india",
+      id: "rice-layer",
+      type: "raster",
+      source: "rice",
       paint: {
-        "fill-color": "#A4BFC1",
-        "fill-opacity": 0.6,
-        "fill-outline-color": "#A4BFC1",
+        "raster-fade-duration": 0,
       },
     });
+  };
 
-    //we will check if map has finished rendering the source on the map
-    //using the idle event because even if the source is loaded
-    //it takes more time to render it on the map.
-    map.on("idle", () => {
-      if (map.getSource("india") && map.isSourceLoaded("india")) {
-        setLayerLoad(false);
-      }
-    });
+  const handleRiceLayerWestBengal = () => {};
 
-    //create popups on clicked grids
-    map.on("click", "india-layer", (e) => {
-      // setLayerLoad(true);
-      let id = e.features[0].properties.id;
-      if (localGridId.includes(id)) {
-        console.log("this grid already exists");
-      } else {
-        localGridId.push(id);
-        onGridIdChange(localGridId);
-        let coordinates = e.features[0].geometry.coordinates[0];
+  const handleSCLayerUP = () => {
+    setAnchorEl(null);
+    map.flyTo({ center:[79.4, 30.4,], zoom: 6})
+    map.loadImage(
+      "https://gjeev.github.io/layers/purple-sugarcane.png",
+      function (error, image) {
+        if (error) throw error;
+        map.addImage("pcane", image);
+        map.addSource("sugarcane", {
+          type: "geojson",
+          // Use a URL for the value for the `data` property.
+          data: "https://gjeev.github.io/layers/binarymask.json",
+        });
+
         map.addLayer({
-          id: `popUp${id}`,
-          type: "fill",
-          source: {
-            type: "geojson",
-            data: {
-              type: "Feature",
-              geometry: {
-                type: "Polygon",
-                coordinates: [
-                  [
-                    coordinates[0],
-                    coordinates[1],
-                    coordinates[2],
-                    coordinates[3],
-                    coordinates[4],
-                  ],
-                ],
-              },
-            },
-          },
-          layout: {},
-          paint: {
-            "fill-color": "#A4BFC1",
-            "fill-opacity": 1,
-            "fill-outline-color": "#A4BFC1",
+          id: "sugarcane-layer",
+          type: "symbol",
+          source: "sugarcane",
+          layout: {
+            "icon-image": "pcane",
           },
         });
       }
-    });
-  }
+    );
+  };
 
   return (
     <>
-      <li id="second" className="list layer-li" onClick={handleLayerLiOpen}>
+    {openSB && <Snackbar
+    open={openSB}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Note archived"
+        action={action}
+        ></Snackbar>}
+      <li id="second" className="list layer-li" onClick={handleMenuOpen}>
         <Tooltip placement="top" title="show layers">
           <img src="/images/panelicon4.png" />
         </Tooltip>
@@ -150,7 +121,7 @@ export default function List4({
         aria-labelledby="demo-positioned-button"
         anchorEl={anchorEl}
         open={open}
-        onClose={handleLayerLiClose}
+        onClose={handleMenuClose}
         anchorOrigin={{
           vertical: "top",
           horizontal: "right",
@@ -160,18 +131,25 @@ export default function List4({
           horizontal: -10,
         }}
       >
-        <MenuItem onClick={handleIndiaLayerClick}>
-          Add India Grid Layer
+        <MenuItem onClick={handleRiceLayerPunjab}>
+          <ListItemIcon>
+            <RiceBowlIcon></RiceBowlIcon>
+          </ListItemIcon>{" "}
+          <ListItemText>Rice Binary Mask Punjab</ListItemText>
         </MenuItem>
-
-        <MenuItem onClick={handleLayerLiClose}>Add Binary Mask Layer</MenuItem>
+        <MenuItem onClick={handleRiceLayerWestBengal}>
+          <ListItemIcon>
+            <RiceBowlIcon></RiceBowlIcon>
+          </ListItemIcon>{" "}
+          <ListItemText>Rice Binary Mask West Bengal</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleSCLayerUP}>
+          <ListItemIcon>
+            <ParkIcon></ParkIcon>
+          </ListItemIcon>{" "}
+          <ListItemText>Sugarcane Binary Mask UttarPradesh</ListItemText>
+        </MenuItem>
       </Menu>
-      <Snackbar
-        open={zoomAlert}
-        autoHideDuration={5000}
-        message="the map will zoom in order to decrease loading times!"
-        onClose={handleZoomAlertClose}
-      />
     </>
   );
 }

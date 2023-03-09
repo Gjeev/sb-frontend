@@ -5,10 +5,11 @@ import { fog } from "../../data/fog";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
-// https://studio.mapbox.com/styles/jemm/cle5ppqxd003y01qmqn05pwpf/edit/#2.33/26.37/81.88
+import Grid from "../../components/grid";
+
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
-export default function Body() {
+export default function Body({gridId, onGridIdChange}) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const start = {
@@ -20,11 +21,9 @@ export default function Body() {
   const [lat, setLat] = useState(start.center[1]);
   const [animationEnd, setAnimationEnd] = useState(false);
 
-  const [gridId, setGridId] = useState([]);
-  const onGridIdChange = (changedArray) => {
-    setGridId(changedArray);
-  };
+
   const [layerLoad, setLayerLoad] = useState(false);
+  const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
     if (map.current) return; // initialize map only once
@@ -52,7 +51,7 @@ export default function Body() {
         const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
         distancePerSecond *= zoomDif;
       }
-      const center = [78, 24];
+      const center = [73, 31];
       center.lng -= distancePerSecond;
       // Smoothly animate the map over one second.
       // When this animation is complete, it calls a 'moveend' event.
@@ -103,20 +102,29 @@ export default function Body() {
       getLocation();
     }
   }, [animationEnd]);
+  // useEffect(() => {
+  //   console.log("parent", gridId);
+  // },[gridId]);
 
   return (
     <>
       <div className="main-content">
         <Panel
           map={map.current}
-          gridId={gridId}
-          onGridIdChange={onGridIdChange}
-          layerLoad={layerLoad}
-          setLayerLoad={setLayerLoad}
+          gridId = {gridId}
         ></Panel>
         <div ref={mapContainer} className="map"></div>
         <div className="information">
           Latitude: {lat} | Longitude: {lng}
+        </div>
+        <div className="grid-modal">
+          <Grid map={map.current}
+          layerLoad={layerLoad}
+          setLayerLoad={setLayerLoad}
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onGridIdChange={onGridIdChange}
+          ></Grid>
         </div>
         {layerLoad && (
           <div className="progress-spinner">

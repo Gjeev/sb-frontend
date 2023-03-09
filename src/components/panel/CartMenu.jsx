@@ -5,7 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-export default function List2({ map, gridId, onGridIdChange}) {
+export default function CartMenu({gridId}) {
 
   //controls closing of layer menu
   const [anchorEl, setAnchorEl] = useState(null);
@@ -17,30 +17,12 @@ export default function List2({ map, gridId, onGridIdChange}) {
     setAnchorEl(null);
   };
 
-  //handles deletion of grids
-  function handleGridDeletion(id) {
-    if (map.getLayer(`popUp${id}`)) {
-      map.removeLayer(`popUp${id}`);
-    }
-    onGridIdChange(gridId.filter((grid) => grid != id));
-  }
-
   // adds selected grids to menu
   const renderList = gridId.map((id) => (
     <MenuItem onClick={handleGridsLiClose} key={id}>
       <Stack direction="row" spacing={2}>
         <Button variant="contained" color="success">
           {id}
-        </Button>
-        <Button
-          variant="outlined"
-          color="error"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleGridDeletion(id);
-          }}
-        >
-          Delete
         </Button>
       </Stack>
     </MenuItem>

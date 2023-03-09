@@ -67,7 +67,10 @@ export default function Header() {
                 </Avatar>
               </div>
               <div className="icons">
-                <img src="./images/cart.svg"></img>
+              <Link to="/cart">
+              <img src="./images/cart.svg"></img>
+              </Link>
+
               </div>
               <Button className="buttonhome" onClick={handleLogoutButtonClick}>
                 LOG OUT

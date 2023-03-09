@@ -1,0 +1,21 @@
+.button-box {
+  padding: 1em;
+  width: 300px;
+  background-color: rgba(35, 55, 75, 0.9);
+  border: #0d1b1c 1px solid;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.button-box button{
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 7px;
+    background-color: aliceblue;
+}
+.button-box button:hover {
+    background-color: rgb(193, 205, 215);
+    text-decoration: underline;
+}
