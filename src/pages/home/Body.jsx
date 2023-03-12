@@ -102,9 +102,6 @@ export default function Body({gridId, onGridIdChange}) {
       getLocation();
     }
   }, [animationEnd]);
-  // useEffect(() => {
-  //   console.log("parent", gridId);
-  // },[gridId]);
 
   return (
     <>

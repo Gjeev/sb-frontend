@@ -1,5 +1,6 @@
 import "../css/grid.css";
 import { useState, useEffect } from "react";
+
 export default function Grid({
   map,
   setLayerLoad,
@@ -9,15 +10,6 @@ export default function Grid({
 }) {
   const [localGridId, setLocalGridId] = useState([]);
 
-  //alerts the user about the zooming in for optimised loading times
-  const [zoomAlert, setZoomAlert] = useState(false);
-  const handleZoomAlertClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
-    setZoomAlert(false);
-  };
-
   //controls adding & removing of india layer
   const handleIndiaLayerClick = () => {
     addIndiaLayer();
@@ -25,15 +17,43 @@ export default function Grid({
   };
   const handleRemoveIndiaLayer = () => {
     map.removeLayer("india-layer");
+    for (const id of localGridId) {
+      map.removeLayer(`popUp${id}`);
+    }
     map.removeSource("india");
+
     setShowModal(true);
   };
 
-  function addIndiaLayer() {
-    if (map.getZoom() < 12) {
-      setZoomAlert(true);
-      map.flyTo({ zoom: 14 });
+  function handleAdd(id) {
+    if (localGridId.includes(id)) {
+      setLocalGridId(localGridId.filter((item) => item !== id));
+      if (map.getLayer(`popUp${id}`)) {
+        map.removeLayer(`popUp${id}`);
+      }
+    } else {
+      setLocalGridId([...localGridId, id]);
+      if (!map.getLayer(`popUp${id}`)) {
+        map.addLayer({
+          id: `popUp${id}`,
+          type: "symbol",
+          source: "india",
+          layout: {
+            "text-field": ["get", "id"],
+            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+            "text-offset": [0, 0.6],
+            "text-anchor": "top",
+          },
+          paint: {
+            "text-color": "green",
+          },
+          filter: ["==", "id", id],
+        });
+      }
     }
+  }
+
+  function addIndiaLayer() {
     map.addSource("india", {
       type: "geojson",
       // Use a URL for the value for the `data` property.
@@ -66,34 +86,19 @@ export default function Grid({
       }
     });
   }
-  function handleAdd(id) {
-    if (localGridId.includes(id)) {
-      console.log("removing..");
-      setLocalGridId(localGridId.filter((item) => item !== id));
-    } else {
-      setLocalGridId([...localGridId, id]);
-    }
-  }
-
   useEffect(() => {
     if (!map) return;
-    let id = null;
     map.on("click", "india-layer", (e) => {
       map.getCanvas().style.cursor = "pointer";
       if (e.features.length > 0) {
-        id = e.features[0].properties.id;
+        let id = e.features[0].properties.id;
         handleAdd(id);
-        let currentState = map.getFeatureState({ source: "india", id: id });
-        console.log(currentState);
-        map.setFeatureState(
-          { source: "india", id: id },
-          { click: !currentState.click }
-        );
       }
     });
 
     return () => map.off("click", "india-layer");
   }, [map, localGridId]);
+
   useEffect(() => {
     onGridIdChange(localGridId);
   }, [localGridId]);
@@ -103,6 +108,8 @@ export default function Grid({
       {showModal && (
         <>
           Want to get detailed information reports on our layers?
+          <br></br>
+          Go to your desired location and click on the button.
           <button onClick={handleIndiaLayerClick}>
             Proceed to Grid selection
           </button>

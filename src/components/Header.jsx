@@ -45,7 +45,7 @@ export default function Header() {
               <a href="/">Home</a>
             </li>
             <li>
-              <a href="/about">About</a>
+              <a href="/about" className="tut-about">About</a>
             </li>
             
             <li>

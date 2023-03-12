@@ -2,27 +2,33 @@ import Tooltip from "@mui/material/Tooltip";
 import { useState } from "react";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-export default function DeleteMenu({map}) {
-
+export default function DeleteMenu({ map }) {
   //controls closing of layer menu
-    const [anchorEl, setAnchorEl] = useState(null);
-    const open = Boolean(anchorEl);
-    const handleDelMenuOpen = (event) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handlDelLiClose = () => {
-      setAnchorEl(null);
-    };
-    const handlDelSCLayer = () => {
-      setAnchorEl(null);
-      map.removeLayer("sugarcane-layer");
-      map.removeSource("sugarcane");
-    };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleDelMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handlDelLiClose = () => {
+    setAnchorEl(null);
+  };
+  const handlDelSCLayer = () => {
+    setAnchorEl(null);
+
+    map.removeLayer("unclustered-point");
+    map.removeLayer("cluster-count");
+    map.removeLayer("clusters");
+    map.removeSource("earthquakes");
+  };
+  const handleDelVeg = () => {
+    setAnchorEl(null);
+    map.setStyle("mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf");
+  };
 
   return (
     <>
       <li className="list delete-list" onClick={handleDelMenuOpen}>
-        <Tooltip placement="top" title="delete grids">
+        <Tooltip placement="top" title="remove layer">
           <img src="/images/panelicon3.png" />
         </Tooltip>
       </li>
@@ -44,6 +50,15 @@ export default function DeleteMenu({map}) {
         <MenuItem onClick={handlDelSCLayer}>
           Remove Sugarcane Binary Mask UP
         </MenuItem>
+        <MenuItem onClick={handleDelVeg}>
+          Remove Vegetation Layer
+        </MenuItem>
+        <MenuItem onClick={handleDelVeg}>
+          Remove Built up Layer
+        </MenuItem>
+        {/* <MenuItem onClick={handleDelVeg}>
+          Remove Punjab Rice Layer
+        </MenuItem> */}
       </Menu>
     </>
   );

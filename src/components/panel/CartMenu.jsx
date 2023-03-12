@@ -5,8 +5,7 @@ import MenuItem from "@mui/material/MenuItem";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 
-export default function CartMenu({gridId}) {
-
+export default function CartMenu({ gridId, map }) {
   //controls closing of layer menu
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -16,6 +15,18 @@ export default function CartMenu({gridId}) {
   const handleGridsLiClose = () => {
     setAnchorEl(null);
   };
+  // const handleSideMenuDelClick = () => {
+  //   console.log(id);
+  // };
+  const handleDeleteAllGrids = () => {
+    for (const id of gridId) {
+      if (map.getLayer(`popUp${id}`)) {
+        map.removeLayer(`popUp${id}`);
+      }
+    }
+    gridId.length = 0;
+    handleGridsLiClose();
+  };
 
   // adds selected grids to menu
   const renderList = gridId.map((id) => (
@@ -24,15 +35,23 @@ export default function CartMenu({gridId}) {
         <Button variant="contained" color="success">
           {id}
         </Button>
+        {/* <Button
+          variant="contained"
+          color="error"
+          onClick={handleSideMenuDelClick}
+        >
+          Delete
+        </Button> */}
       </Stack>
     </MenuItem>
   ));
   return (
     <>
       <li id="third" className="list select-list" onClick={handleGridsLiOpen}>
-        <Tooltip placement="top" title="selected grids">
+        <Tooltip placement="top" title="edit grids">
           <img src="/images/panelicon1.png" />
         </Tooltip>
+        <div className="cart-length">{gridId.length}</div>
       </li>
       <Menu
         id="demo-positioned-menu"
@@ -50,6 +69,17 @@ export default function CartMenu({gridId}) {
         }}
       >
         {renderList}
+        <MenuItem>
+          {gridId.length > 0 ? (
+            <Button
+              variant="contained"
+              color="error"
+              onClick={handleDeleteAllGrids}
+            >
+              Delete All
+            </Button>
+          ) : null}
+        </MenuItem>
       </Menu>
     </>
   );

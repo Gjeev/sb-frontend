@@ -1,5 +1,5 @@
 import "../../css/panel.css";
-import LayerMenu from "./layer-li";
+import LayerMenu from "./LayerMenu";
 import DeleteMenu from "./DeleteMenu";
 import CartMenu from "./CartMenu";
 export default function Panel({ map, gridId }) {
@@ -10,7 +10,7 @@ export default function Panel({ map, gridId }) {
       <ul>
         <LayerMenu map={map} />
         <DeleteMenu map={map} />
-        <CartMenu gridId={gridId}></CartMenu>
+        <CartMenu gridId={gridId} map={map}></CartMenu>
       </ul>
     </div>
   );

@@ -3,6 +3,7 @@
   width: 4rem;
   height: 100%;
   background-color: #0f102a;
+  color: greenyellow;
 }
 .left-panel ul {
   padding: 1em 0;
@@ -22,4 +23,9 @@
 .left-panel .list:hover,
 .list:focus {
   background-color: hwb(237 13% 70%);
+}
+.cart-length{
+  position: relative;
+  left: 0.6rem;
+
 }
