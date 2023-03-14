@@ -115,7 +115,7 @@ export default function App() {
   }, []);
 
   const handleTutorial = () => {
-    if (window.location.href == "http://localhost:5173/") {
+    if (window.location.href == "https://sensingbharat.com/") {
       driver.start();
     }
   };
