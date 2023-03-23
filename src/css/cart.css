@@ -25,6 +25,7 @@
     display: flex;
     justify-content: space-between;
     padding: 1rem;
+    align-items: center;
 }
 .cart-item-remove button{
     background-color: #3d9090;
@@ -51,4 +52,25 @@
 .checkout button:hover {
     background-color: #3d9052;
     text-decoration: underline;
+}
+
+button.layer-button {
+    padding: 0.25rem 0.5rem;
+    background-color: white;
+    color: #0D1B1C;
+    border-radius: 5px;
+    border: solid 1px #8F8F8F;
+    font-family: 'Inter';
+    margin-right: 1rem;
+    margin-left: 1rem;
+}
+button.layer-button-selected {
+    padding: 0.25rem 0.5rem;
+    background-color: rgb(109, 182, 69);
+    color: #ffffff;
+    border-radius: 5px;
+    border: solid 1px #000000;
+    font-family: 'Inter';
+    margin-right: 1rem;
+    margin-left: 1rem;
 }

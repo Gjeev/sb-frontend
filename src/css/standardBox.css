@@ -1,0 +1,16 @@
+.standard-box {
+  width: 300px;
+  height: 200px;
+  background-color: #182228;
+  border: 1px solid #49e9e9;
+  color: white;
+  border-radius: 5px;
+  display: flex;
+  padding: 1rem 1rem;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}

@@ -58,7 +58,7 @@ export default function Body({gridId, onGridIdChange}) {
       map.current.easeTo({ center, zoom: 4.5, duration: 10000, easing: (n) => n });
     }
 
-    spinGlobe();
+    // spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);
