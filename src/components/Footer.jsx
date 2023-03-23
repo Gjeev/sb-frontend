@@ -14,7 +14,7 @@ export default function Footer()
         </div>
         <div className="contact-us">
             <h3>Contact us at</h3>
-            <p>xyz@gmail.com</p>
+            <p>sensingbharat@gmail.com</p>
             <p>+91- 1234457691</p>
         </div>
         <div className="address">

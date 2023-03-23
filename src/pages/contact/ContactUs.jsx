@@ -51,7 +51,7 @@ export default function ContactUs() {
                                 <div><p className="paragraphContactUsForm">First Name</p>
                                 <TextField name="firstName" label="First Name" variant="outlined" InputLabelProps={{style: { color: 'white' }}} inputProps={{style: { color: 'white' }}} required 
                                 sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'beige'},
-                                '& :hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
+                                '&: hover .MuiOutlinedInput-notchedOutline': { borderColor: 'orange'},
                                 '& .Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
                                 }}
                                 onChange={handleChange}/>
@@ -59,7 +59,7 @@ export default function ContactUs() {
                                 <div><p className="paragraphContactUsForm">Last Name</p>
                                 <TextField name="lastName" label="Last Name" variant="outlined" InputLabelProps={{style: { color: 'white' }}} inputProps={{style: { color: 'white' }}} required 
                                 sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'beige'},
-                                '& :hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
+                                '&: hover .MuiOutlinedInput-notchedOutline': { borderColor: 'orange'},
                                 '& .Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
                                 }}
                                 onChange={handleChange}/>
@@ -70,7 +70,7 @@ export default function ContactUs() {
                         <p className="paragraphContactUsForm">Email</p>
                         <TextField name="email" label="Email" variant="outlined" InputLabelProps={{style: { color: 'white' }}} inputProps={{style: { color: 'white' }}} required type="email" 
                         sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'beige'},
-                        '& :hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
+                        '&: hover .MuiOutlinedInput-notchedOutline': { borderColor: 'orange'},
                         '& .Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
                         }}
                         onChange={handleChange} fullWidth/>
@@ -79,7 +79,7 @@ export default function ContactUs() {
                         <p className="paragraphContactUsForm">Phone Number</p>
                         <TextField name="phoneNumber" label="Phone Number" variant="outlined" InputLabelProps={{style: { color: 'white' }}} inputProps={{style: { color: 'white' }}} required 
                         sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'beige'},
-                            '& :hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
+                            '&: hover .MuiOutlinedInput-notchedOutline': { borderColor: 'orange'},
                             '& .Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
                           }}
                         onChange={handleChange}/>
@@ -88,13 +88,13 @@ export default function ContactUs() {
                         <p className="paragraphContactUsForm">Message</p>
                         <TextField name="message" label="Message" variant="outlined" InputLabelProps={{style: { color: 'white' }}} inputProps={{style: { color: 'white' }}} required 
                         sx={{ '& .MuiOutlinedInput-notchedOutline': { borderColor: 'beige'},
-                        '& :hover .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
+                        '&: hover .MuiOutlinedInput-notchedOutline': { borderColor: 'orange'},
                         '& .Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: 'white'},
                         }}
                         onChange={handleChange} multiline minRows="5" fullWidth/>
                         </div>
                         <div className="formcontainercontactus">
-                        <Button type="submit" className="contactUsSubmitButton" fullWidth variant="contained" endIcon={<SendIcon />} disabled>Send Message</Button>
+                        <Button type="submit" className="contactUsSubmitButton" fullWidth variant="contained" endIcon={<SendIcon />} >Send Message</Button>
                         </div>
                         {loading && 
                         <Backdrop
@@ -108,7 +108,7 @@ export default function ContactUs() {
                         }
                     </form>
                     </div>
-                    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} message="Form Submitted! We will get backn to you soon!" sx={{'& .MuiSnackbarContent-root': { backgroundColor: 'green'} }}/>
+                    <Snackbar open={open} autoHideDuration={4000} onClose={handleClose} message="Form Submitted! We will get back to you soon!" sx={{'& .MuiSnackbarContent-root': { backgroundColor: 'green'} }}/>
                     
                     </Grid>
             
