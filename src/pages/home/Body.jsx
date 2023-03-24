@@ -51,14 +51,14 @@ export default function Body({gridId, onGridIdChange}) {
         const zoomDif = (maxSpinZoom - zoom) / (maxSpinZoom - slowSpinZoom);
         distancePerSecond *= zoomDif;
       }
-      const center = [73, 31];
+      const center = [78, 22];
       center.lng -= distancePerSecond;
       // Smoothly animate the map over one second.
       // When this animation is complete, it calls a 'moveend' event.
-      map.current.easeTo({ center, zoom: 4.5, duration: 10000, easing: (n) => n });
+      map.current.easeTo({ center, zoom: 3.5, duration: 10000, easing: (n) => n });
     }
 
-    // spinGlobe();
+    spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);

@@ -25,7 +25,7 @@ export default function App() {
   // Driver.js tutorial
   const [driver, setDriver] = useState(null);
   const handleTutorial = () => {
-    if (window.location.href == "http://localhost:5173/") {
+    if (window.location.href == "https://sensingbharat.com/") {
       const newDriver = new Driver();
       newDriver.defineSteps(steps);
       console.log(steps)
