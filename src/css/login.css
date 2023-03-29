@@ -114,3 +114,14 @@ h1 {
   display: flex;
   justify-content: center;
 }
+.otppara1{
+  font-size:large;
+}
+.otppara2{
+  padding: 0;
+}
+.resend{
+  text-decoration: underline;
+  color:#319bcc;
+  cursor: pointer;
+}

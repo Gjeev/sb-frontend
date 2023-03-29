@@ -67,6 +67,14 @@ export const verifyCredentials = (formData) => async (dispatch) => {
     console.log(error);
   }
 };
+export const resendotp=(formData) => async (dispatch)=>{
+  try{
+    const {data}=await api.resendotp(formData);
+
+  } catch(error){
+    console.log(error);
+  }
+}
 
 export const signup =
   (loginData, history, setInvalidOTP, closeOTPSendAndDisplayBox) =>
