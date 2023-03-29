@@ -102,6 +102,7 @@ export const signup =
 
 export const logout = (history, onUserLogout) => async (dispatch) => {
   dispatch({ type: LOGOUT });
-  onUserLogout();
+  // send function here after dispatch
+  // onUserLogout();
   history.push("/");
 };

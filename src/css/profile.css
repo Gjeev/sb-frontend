@@ -1,0 +1,117 @@
+.profile-page {
+  width: 100vw;
+  background: linear-gradient(
+    111.45deg,
+    #0b0b14 4.83%,
+    #111234 28.14%,
+    #1a2751 52.3%,
+    #1b2641 74.78%,
+    #062779 97.89%
+  );
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 4em);
+}
+.profile-section-1 {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  height: 230px;
+}
+.section-1-bg {
+  background-image: url("../../public/images/profile-bg.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 148px;
+}
+.section-1-details {
+  display: flex;
+  width: 100vw;
+  align-items: center;
+  gap: 2rem;
+  position: absolute;
+  top: 150px;
+}
+.details-image {
+  width: 131px;
+  height: 131px;
+  border-radius: 50%;
+  margin-left: 5rem;
+}
+.details-text {
+  font-family: "Inter";
+}
+.details-text h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+.details-text p {
+  color: white;
+  margin: 0;
+}
+.profile-section-2 {
+  display: flex;
+}
+.section-2-left {
+  width: 25%;
+  color: #49e9e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; 
+  font-weight: 600;
+  font-size: medium;
+}
+.section-2-right {
+  width: calc(75% - 2rem);
+  color: aliceblue;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+.section-2-right-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(75% - 4rem);
+  padding: 0.45rem 0 0.45rem 0;
+}
+.profile-divider {
+  height: 1px;
+  background-color: #f5f5f5;
+  width: 100vw;
+}
+.profile-section-3 {
+  display: flex;
+}
+.section-3-right {
+  width: calc(75% - 2rem);
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 0.75rem;
+  align-items: center;
+}
+.order-ind {
+  background-color: #182228;
+  padding: 1rem 1rem;
+  color: white;
+  border: 1px solid #49e9e9;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  width: calc(75% - 4rem);
+}
+.order-info {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+.order-info span {
+  margin-left: 0.5rem;
+}

@@ -22,11 +22,11 @@ header {
   height: 61px;
   background-image: url("/images/logo.svg");
 }
-.picture-user{
+.picture-user {
   width: 41px;
   height: 41px;
 }
-.icons img{
+.icons img {
   width: 30px;
   height: 30px;
 }
@@ -67,8 +67,7 @@ a:focus {
   color: white;
   border-radius: 8px;
   border: none;
-  padding: 1em;
-  height: auto;
+  padding: 0.25rem 0.5rem;
 }
 .buttons-information-header .buttonhome:hover,
 .buttonhome:focus {
@@ -108,4 +107,15 @@ a:focus {
 }
 .icons:hover {
   background-color: rgb(175, 175, 175);
+}
+.user-name {
+  border-radius: 7px;
+}
+.user-name a {
+  text-decoration: none;
+  color: black;
+}
+.user-name:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
