@@ -19,7 +19,7 @@
   height: 230px;
 }
 .section-1-bg {
-  background-image: url("../../public/images/profile-bg.png");
+  background-image: url("/images/profile-bg.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

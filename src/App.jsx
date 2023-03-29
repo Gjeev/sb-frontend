@@ -15,7 +15,9 @@ import Alert from "@mui/material/Alert";
 import { Button } from "@mui/material";
 import { steps } from "./data/driver.js";
 import Profile from "./pages/user/Profile.jsx";
+import { useSelector } from "react-redux";
 export default function App() {
+  const user = useSelector((state) => state.authReducer.user);
   const [gridId, setGridId] = useState([]);
   const [open, setOpen] = useState(true);
   const onGridIdChange = (changedArray) => {
@@ -41,7 +43,7 @@ export default function App() {
         <Switch>
           <Route exact path="/">
             <Header />
-            {open && (
+            {/* {open && (
               <Alert severity="info" onClose={() => setOpen(false)}>
                 Welcome to our website! We are currently in the process of
                 developing our website. Please bear with us as we work on it.
@@ -50,7 +52,7 @@ export default function App() {
                   Click here to see a tutorial!
                 </Button>
               </Alert>
-            )}
+            )} */}
             <Body gridId={gridId} onGridIdChange={onGridIdChange} />
           </Route>
 

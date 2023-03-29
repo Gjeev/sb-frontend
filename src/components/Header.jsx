@@ -68,7 +68,7 @@ export default function Header() {
               </div>
             <div className="icons">
               <Link to="/cart">
-                <img src="../../public/images/cart.svg"></img>
+                <img src="/images/cart.svg"></img>
               </Link>
             </div>
             <Button className="buttonhome" onClick={handleLogoutButtonClick}>

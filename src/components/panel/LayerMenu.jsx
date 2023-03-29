@@ -76,12 +76,12 @@ export default function LayerMenu({ map }) {
 
   // add layers functions
 
-  // const handleRiceLayerPunjab = () => {
-  //   setAnchorEl(null);
-  //   handleClick();
-  //   setLayer("rice");
-  //   map.setStyle("");
-  // };
+  const handleRiceLayerUP = () => {
+    setAnchorEl(null);
+    handleClick();
+    setLayer("rice");
+    map.setStyle("mapbox://styles/jemm/clftlljk100jp01p4glkjh9tk");
+  };
 
   // const handleRiceLayerWestBengal = () => {};
 
@@ -226,6 +226,12 @@ export default function LayerMenu({ map }) {
             <AutoFixHighIcon></AutoFixHighIcon>
           </ListItemIcon>{" "}
           <ListItemText>India Wide Vegetation layer</ListItemText>
+        </MenuItem>
+        <MenuItem onClick={handleRiceLayerUP}>
+          <ListItemIcon>
+            <AutoFixHighIcon></AutoFixHighIcon>
+          </ListItemIcon>{" "}
+          <ListItemText>Rice Up</ListItemText>
         </MenuItem>
       </Menu>
     </>

@@ -9,7 +9,7 @@ import Grid from "../../components/grid";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
-export default function Body({gridId, onGridIdChange}) {
+export default function Body({ gridId, onGridIdChange }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
   const start = {
@@ -21,22 +21,18 @@ export default function Body({gridId, onGridIdChange}) {
   const [lat, setLat] = useState(start.center[1]);
   const [animationEnd, setAnimationEnd] = useState(false);
 
-
   const [layerLoad, setLayerLoad] = useState(false);
   const [showModal, setShowModal] = useState(true);
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
+    if (map.current) return;
+    // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf",
       projection: "globe",
       center: start.center,
       zoom: start.zoom,
-    });
-
-    map.current.on("load", () => {
-      map.current.setFog(fog);
     });
 
     function spinGlobe() {
@@ -55,10 +51,14 @@ export default function Body({gridId, onGridIdChange}) {
       center.lng -= distancePerSecond;
       // Smoothly animate the map over one second.
       // When this animation is complete, it calls a 'moveend' event.
-      map.current.easeTo({ center, zoom: 3.5, duration: 10000, easing: (n) => n });
+      map.current.easeTo({
+        center,
+        zoom: 3.5,
+        duration: 14000,
+        easing: (t) => t,
+      });
     }
-
-    spinGlobe();
+    // spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);
@@ -95,7 +95,7 @@ export default function Body({gridId, onGridIdChange}) {
         map.current.flyTo({
           center: [position.coords.longitude, position.coords.latitude],
           zoom: 9,
-          duration: 12000,
+          duration: 14000,
           essential: true,
         });
       }
@@ -106,21 +106,19 @@ export default function Body({gridId, onGridIdChange}) {
   return (
     <>
       <div className="main-content">
-        <Panel
-          map={map.current}
-          gridId = {gridId}
-        ></Panel>
+        <Panel map={map.current} gridId={gridId}></Panel>
         <div ref={mapContainer} className="map"></div>
         <div className="information">
           Latitude: {lat} | Longitude: {lng}
         </div>
         <div className="grid-modal">
-          <Grid map={map.current}
-          layerLoad={layerLoad}
-          setLayerLoad={setLayerLoad}
-          showModal={showModal}
-          setShowModal={setShowModal}
-          onGridIdChange={onGridIdChange}
+          <Grid
+            map={map.current}
+            layerLoad={layerLoad}
+            setLayerLoad={setLayerLoad}
+            showModal={showModal}
+            setShowModal={setShowModal}
+            onGridIdChange={onGridIdChange}
           ></Grid>
         </div>
         {layerLoad && (

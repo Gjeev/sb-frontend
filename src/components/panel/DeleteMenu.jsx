@@ -56,9 +56,9 @@ export default function DeleteMenu({ map }) {
         <MenuItem onClick={handleDelVeg}>
           Remove Built up Layer
         </MenuItem>
-        {/* <MenuItem onClick={handleDelVeg}>
-          Remove Punjab Rice Layer
-        </MenuItem> */}
+        <MenuItem onClick={handleDelVeg}>
+          Remove UP Rice Layer
+        </MenuItem>
       </Menu>
     </>
   );

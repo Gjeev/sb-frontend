@@ -57,11 +57,11 @@ export default function Profile() {
                   </div>
                   <div className="order-info">
                     <div className="order-price">
-                      <img src="../../public/images/currency.png"></img>
+                      <img src="/images/currency.png"></img>
                       <span>1000</span>
                     </div>
                     <div className="order-date">
-                      <img src="../../public/images/coolicon.png"></img>
+                      <img src="/images/coolicon.png"></img>
                       <span>21 December, 2022</span>
                     </div>
                   </div>
@@ -72,11 +72,11 @@ export default function Profile() {
                   </div>
                   <div className="order-info">
                     <div className="order-price">
-                      <img src="../../public/images/currency.png"></img>
+                      <img src="/images/currency.png"></img>
                       <span>1000</span>
                     </div>
                     <div className="order-date">
-                      <img src="../../public/images/coolicon.png"></img>
+                      <img src="/images/coolicon.png"></img>
                       <span>21 December, 2022</span>
                     </div>
                   </div>
@@ -87,11 +87,11 @@ export default function Profile() {
                   </div>
                   <div className="order-info">
                     <div className="order-price">
-                      <img src="../../public/images/currency.png"></img>
+                      <img src="/images/currency.png"></img>
                       <span>1000</span>
                     </div>
                     <div className="order-date">
-                      <img src="../../public/images/coolicon.png"></img>
+                      <img src="/images/coolicon.png"></img>
                       <span>21 December, 2022</span>
                     </div>
                   </div>
