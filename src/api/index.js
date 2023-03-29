@@ -21,3 +21,4 @@ export const userExistsCheck=(formData) => API.post('/user/userexistscheck',form
 export const validateotp=(loginData) => API.post('/user/validateotp',loginData);
 export const createPdf=() => API.post('/action/createPdf');
 export const sendfeedback=(contactUsFormData)=> API.post('/action/sendfeedback',contactUsFormData);
+export const resendotp = (formData) => API.post('/user/resendotp', formData);

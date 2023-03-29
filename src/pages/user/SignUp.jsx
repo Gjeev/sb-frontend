@@ -3,7 +3,7 @@ import Input from "./Input";
 import { useState } from "react";
 import { Button, Grid } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { signup, verifyCredentials, checkIfUserExists } from "../../actions/user";
+import { signup, verifyCredentials, checkIfUserExists, resendotp } from "../../actions/user";
 import { useHistory } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import OtpInput from 'react18-input-otp';
@@ -74,6 +74,10 @@ export default function SignUp() {
       console.log(error);
     }
   };
+  const handleResendClick=()=>{
+    console.log(formData);
+    dispatch(resendotp(formData));
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     setPasswordsNotMatching(false);
@@ -96,7 +100,7 @@ export default function SignUp() {
                                 An OTP has been sent to your entered email address.
                             </p>
                             <div className="otpElements">
-                                <p className="otppara2">Enter your Code here</p>
+                                <p className="otppara2">Enter your OTP here</p>
                                 <div className="otp">
                                     <OtpInput className="otpinputsection"
                                         onChange={handleChangeOtp}
@@ -108,7 +112,7 @@ export default function SignUp() {
                                 </div>
                                 {invalidOTP && <p className="red-error-login">Invalid OTP,please try again.</p>}
                                 <p className="otppara2">Didn't receive the code?</p>
-                                <p className="resend">Resend</p>
+                                <p className="otppara2"><a className="resend" onClick={handleResendClick}>Resend</a></p>
                             </div>
                             <Button type="submit" variant="contained" color="primary" onClick={handleSubmitOTP}>Verify</Button>
                         </div>
