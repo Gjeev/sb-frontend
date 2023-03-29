@@ -58,7 +58,7 @@ export default function Body({ gridId, onGridIdChange }) {
         easing: (t) => t,
       });
     }
-    // spinGlobe();
+    spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);
