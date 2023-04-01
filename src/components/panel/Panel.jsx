@@ -78,8 +78,8 @@ export default function Panel({ map, gridId }) {
               <img src="/images/homepage-green-icon.svg"></img>
             </li>
           </ul>
-        </li>
-      </ul>  */}
+        </li> */}
+      {/* </ul> */}
     </div>
   );
 }
