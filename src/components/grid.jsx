@@ -17,47 +17,31 @@ export default function Grid({
   };
   const handleRemoveIndiaLayer = () => {
     map.removeLayer("india-layer");
-    for (const id of localGridId) {
-      map.removeLayer(`popUp${id}`);
-    }
+    map.removeLayer("state-borders");
     map.removeSource("india");
 
     setShowModal(true);
   };
 
   function handleAdd(id) {
-    if (localGridId.includes(id)) {
-      setLocalGridId(localGridId.filter((item) => item !== id));
-      if (map.getLayer(`popUp${id}`)) {
-        map.removeLayer(`popUp${id}`);
+    setLocalGridId((prevState) => {
+      if (prevState.includes(id)) {
+        return prevState.filter((item) => item !== id);
+      } else {
+        return [...prevState, id];
       }
-    } else {
-      setLocalGridId([...localGridId, id]);
-      if (!map.getLayer(`popUp${id}`)) {
-        map.addLayer({
-          id: `popUp${id}`,
-          type: "symbol",
-          source: "india",
-          layout: {
-            "text-field": ["get", "id"],
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top",
-          },
-          paint: {
-            "text-color": "green",
-          },
-          filter: ["==", "id", id],
-        });
-      }
-    }
+    });
   }
 
   function addIndiaLayer() {
     map.addSource("india", {
       type: "geojson",
-      // Use a URL for the value for the `data` property.
       data: "https://gjeev.github.io/layers/india.json",
+      promoteId: {
+        STATE: "id",
+      },
+      generateId: true,
+      attribution: "© OpenStreetMap contributors",
     });
 
     map.addLayer({
@@ -65,16 +49,42 @@ export default function Grid({
       type: "fill",
       source: "india",
       paint: {
-        "fill-color": [
+        "fill-color": "#627BC1",
+        "fill-opacity": [
           "case",
-          ["==", ["feature-state", "click"], true],
-          "green",
-          "black",
+          ["boolean", ["feature-state", "hover"], false],
+          1,
+          0.5,
         ],
-        "fill-opacity": 0.6,
-        "fill-outline-color": "black",
       },
     });
+    map.addLayer({
+      id: "state-borders",
+      type: "line",
+      source: "india",
+      layout: {},
+      paint: {
+        "line-color": "#627BC1",
+        "line-width": 2,
+      },
+    });
+    map.on("click", "india-layer", (e) => {
+      if (e.features.length > 0) {
+        let clickedStateId = e.features[0].id;
+        console.log(clickedStateId);
+        let hoverState = map.getFeatureState(
+          { source: "india", id: clickedStateId },
+          { hover: true }
+        ) || { hover: false };
+        map.setFeatureState(
+          { source: "india", id: clickedStateId },
+          { hover: !hoverState.hover }
+        );
+        handleAdd(clickedStateId);
+      }
+    });
+
+    map.setFeatureState({ source: "india", id: "*" }, { hover: false });
 
     //we will check if map has finished rendering the source on the map
     //using the idle event because even if the source is loaded
@@ -86,18 +96,6 @@ export default function Grid({
       }
     });
   }
-  useEffect(() => {
-    if (!map) return;
-    map.on("click", "india-layer", (e) => {
-      map.getCanvas().style.cursor = "pointer";
-      if (e.features.length > 0) {
-        let id = e.features[0].properties.id;
-        handleAdd(id);
-      }
-    });
-
-    return () => map.off("click", "india-layer");
-  }, [map, localGridId]);
 
   useEffect(() => {
     onGridIdChange(localGridId);
