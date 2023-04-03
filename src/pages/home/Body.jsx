@@ -1,7 +1,6 @@
 import "../../css/body.css";
 import Panel from "../../components/panel/Panel";
 import { coordinatesGeocoder } from "./SearchBox";
-import { fog } from "../../data/fog";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
@@ -58,7 +57,7 @@ export default function Body({ gridId, onGridIdChange }) {
         easing: (t) => t,
       });
     }
-    spinGlobe();
+    // spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);

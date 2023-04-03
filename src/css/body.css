@@ -6,7 +6,7 @@
 }
 .map {
   height: 100%;
-  width: calc(100vw - 4rem);
+  width: calc(100vw - 8rem);
   background-color: #0d1b1c;
 }
 

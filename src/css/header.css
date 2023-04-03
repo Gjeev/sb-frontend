@@ -106,7 +106,7 @@ a:focus {
   border-radius: 7px;
 }
 .icons:hover {
-  background-color: rgb(175, 175, 175);
+  cursor: pointer;
 }
 .user-name {
   border-radius: 7px;

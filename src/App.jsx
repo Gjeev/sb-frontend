@@ -11,8 +11,6 @@ import { useState, useEffect } from "react";
 import "driver.js/dist/driver.min.css";
 import ContactUs from "./pages/contact/ContactUs.jsx";
 import Cart from "./pages/checkout/Cart";
-import Alert from "@mui/material/Alert";
-import { Button } from "@mui/material";
 import { steps } from "./data/driver.js";
 import Profile from "./pages/user/Profile.jsx";
 import { useSelector } from "react-redux";
@@ -30,62 +28,56 @@ export default function App() {
     if (window.location.href == "https://sensingbharat.com/") {
       const newDriver = new Driver();
       newDriver.defineSteps(steps);
-      console.log(steps)
+      console.log(steps);
       setDriver(newDriver);
-      driver.start();
-      console.log("started driver in right website!");
+      if (driver) {
+        driver.start();
+      }
     }
   };
+  useEffect(() => {
+    console.log("gridId", gridId);
+  }, [gridId]);
 
   return (
     <>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Header />
-            {/* {open && (
-              <Alert severity="info" onClose={() => setOpen(false)}>
-                Welcome to our website! We are currently in the process of
-                developing our website. Please bear with us as we work on it.
-                Thank you!
-                <Button variant="contained" onClick={handleTutorial}>
-                  Click here to see a tutorial!
-                </Button>
-              </Alert>
-            )} */}
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <Body gridId={gridId} onGridIdChange={onGridIdChange} />
           </Route>
 
           <Route exact path="/about">
-            <Header />
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <About></About>
           </Route>
 
           <Route exact path="/login">
-            <Header />
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <Body gridId={gridId} onGridIdChange={onGridIdChange} />
             <Login />
           </Route>
 
           <Route exact path="/signUp">
-            <Header />
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <Body gridId={gridId} onGridIdChange={onGridIdChange} />
             <SignUp />
           </Route>
 
           <Route exact path="/contactus">
-            <Header />
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <ContactUs />
             <Footer />
           </Route>
 
           <Route exact path="/cart">
-            <Header />
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <Cart gridId={gridId} onGridIdChange={onGridIdChange} />
           </Route>
 
           <Route exact path="/profile/123">
-            <Header />
+            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
             <Profile></Profile>
           </Route>
         </Switch>

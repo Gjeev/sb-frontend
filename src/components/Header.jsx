@@ -5,8 +5,19 @@ import { deepOrange } from "@mui/material/colors";
 import { logout } from "../actions/user";
 import { createPdf } from "../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import {
+  Badge,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+  Stack,
+} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function Header() {
+export default function Header({ gridId, onGridIdChange }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -16,9 +27,7 @@ export default function Header() {
   const user = useSelector((state) => state.authReducer.user);
   const userToken = useSelector((state) => state.authReducer.token);
 
-  const handleUserLogout = async () => {
-
-  };
+  const handleUserLogout = async () => {};
   const handleLogoutButtonClick = () => {
     //some checks might need to be done when further features are added
     dispatch(logout(history, handleUserLogout));
@@ -27,6 +36,26 @@ export default function Header() {
   const handlePDFCheck = () => {
     dispatch(createPdf());
   };
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleCartClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleCartClose = () => {
+    setAnchorEl(null);
+  };
+
+  const renderList = gridId.map((id) => (
+    <>
+      <MenuItem onClick={handleCartClose} key={id}>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Button variant="outlined" size="small">
+            {id}
+          </Button>
+        </Stack>
+      </MenuItem>
+    </>
+  ));
 
   return (
     <header>
@@ -56,21 +85,74 @@ export default function Header() {
         <>
           <div className="buttons-information-header">
             <div className="user-name">
-            <Link to="/profile/123">{user.name}</Link></div>
-              <div className="user-image picture-user">
-                <Avatar
-                  sx={{ bgcolor: deepOrange[500] }}
-                  alt={user.name}
-                  src={user.picture}
-                >
-                  {/* { {user.name.charAt(0).toUpperCase()} } */}
-                </Avatar>
-              </div>
-            <div className="icons">
-              <Link to="/cart">
-                <img src="/images/cart.svg"></img>
-              </Link>
+              <Link to="/profile/123">{user.name}</Link>
             </div>
+            <div className="user-image picture-user">
+              <Avatar
+                sx={{ bgcolor: deepOrange[500] }}
+                alt={user.name}
+                src={user.picture}
+              >
+                {/* { {user.name.charAt(0).toUpperCase()} } */}
+              </Avatar>
+            </div>
+            <div className="icons" onClick={handleCartClick}>
+              <IconButton
+                aria-controls="cart-menu"
+                aria-haspopup="true"
+                onClick={handleCartClick}
+                color="inherit"
+              >
+                <Badge badgeContent={gridId.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </div>
+            <Menu
+              id="cart-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleCartClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: 0,
+                horizontal: -10,
+              }}
+            >
+              {gridId.length > 0 ? (
+                renderList
+              ) : (
+                <>
+                  <MenuItem>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ py: 2, textAlign: "center" }}
+                    >
+                      Your cart is empty. High class reports, few clicks away.
+                    </Typography>
+                  </MenuItem>
+                </>
+              )}
+              <MenuItem>
+                {gridId.length > 0 ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      component="a"
+                      href="/cart"
+                      rel="noopener"
+                    >
+                      Checkout
+                    </Button>
+                  </>
+                ) : null}
+              </MenuItem>
+            </Menu>
             <Button className="buttonhome" onClick={handleLogoutButtonClick}>
               LOG OUT
             </Button>
