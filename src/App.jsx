@@ -13,14 +13,9 @@ import ContactUs from "./pages/contact/ContactUs.jsx";
 import Cart from "./pages/checkout/Cart";
 import { steps } from "./data/driver.js";
 import Profile from "./pages/user/Profile.jsx";
-import { useSelector } from "react-redux";
+
 export default function App() {
-  const user = useSelector((state) => state.authReducer.user);
-  const [gridId, setGridId] = useState([]);
-  const [open, setOpen] = useState(true);
-  const onGridIdChange = (changedArray) => {
-    setGridId(changedArray);
-  };
+  const [open, setOpen] = useState(false);
 
   // Driver.js tutorial
   const [driver, setDriver] = useState(null);
@@ -35,49 +30,46 @@ export default function App() {
       }
     }
   };
-  useEffect(() => {
-    console.log("gridId", gridId);
-  }, [gridId]);
 
   return (
     <>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
-            <Body gridId={gridId} onGridIdChange={onGridIdChange} />
+            <Header />
+            <Body />
           </Route>
 
           <Route exact path="/about">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
+            <Header />
             <About></About>
           </Route>
 
           <Route exact path="/login">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
-            <Body gridId={gridId} onGridIdChange={onGridIdChange} />
+            <Header />
+            <Body />
             <Login />
           </Route>
 
           <Route exact path="/signUp">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
-            <Body gridId={gridId} onGridIdChange={onGridIdChange} />
+            <Header />
+            <Body />
             <SignUp />
           </Route>
 
           <Route exact path="/contactus">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
+            <Header />
             <ContactUs />
             <Footer />
           </Route>
 
           <Route exact path="/cart">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
-            <Cart gridId={gridId} onGridIdChange={onGridIdChange} />
+            <Header />
+            <Cart />
           </Route>
 
           <Route exact path="/profile/123">
-            <Header gridId={gridId} onGridIdChange={onGridIdChange}/>
+            <Header />
             <Profile></Profile>
           </Route>
         </Switch>

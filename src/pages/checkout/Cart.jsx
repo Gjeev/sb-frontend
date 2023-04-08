@@ -4,15 +4,22 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { layers } from "./layers";
+import { Button } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { UPDATE_CART } from "../../constants";
 
-export default function Cart({ gridId, onGridIdChange }) {
+export default function Cart() {
+  const gridId = useSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
+
   function handleRemoveClick(index) {
     const newGridId = [...gridId];
     newGridId.splice(index, 1);
-    onGridIdChange(newGridId);
+    dispatch({ type: UPDATE_CART, payload: newGridId });
   }
 
-  const user = useSelector((state) => state.authReducer.user);
+  const user = useSelector((state) => state.auth.user);
+
   const handleCheckoutButtonClick = () => {
     let paymentSessionId = "";
     axios
@@ -47,12 +54,20 @@ export default function Cart({ gridId, onGridIdChange }) {
     setCartPrice(gridId.length * 500);
   }, [gridId]);
 
-  const handleLayerClick = (layer) => {
-    if (selectedLayers.includes(layer)) {
-      setSelectedLayers(selectedLayers.filter((l) => l !== layer));
-    } else {
-      setSelectedLayers([...selectedLayers, layer]);
-    }
+  const handleLayerClick = (layer, index) => {
+    setSelectedLayers((prevSelectedLayers) => {
+      const updatedSelectedLayers = [...prevSelectedLayers];
+      if (!updatedSelectedLayers[index]) {
+        updatedSelectedLayers[index] = [];
+      }
+      const layerIndex = updatedSelectedLayers[index].indexOf(layer);
+      if (layerIndex === -1) {
+        updatedSelectedLayers[index].push(layer);
+      } else {
+        updatedSelectedLayers[index].splice(layerIndex, 1);
+      }
+      return updatedSelectedLayers;
+    });
   };
 
   return (
@@ -68,10 +83,13 @@ export default function Cart({ gridId, onGridIdChange }) {
                   {layers.map((layer) => (
                     <>
                       <button
+                        key={layer}
                         className={`layer-button${
-                          selectedLayers.includes(layer) ? "-selected" : ""
+                          selectedLayers[index]?.includes(layer)
+                            ? "-selected"
+                            : ""
                         }`}
-                        onClick={() => handleLayerClick(layer)}
+                        onClick={() => handleLayerClick(layer, index)}
                       >
                         <span>{layer}</span>
                       </button>
@@ -93,7 +111,13 @@ export default function Cart({ gridId, onGridIdChange }) {
         </div>
       </div>
       <div className="checkout">
-        <button onClick={handleCheckoutButtonClick}>Proceed to checkout</button>
+        {user ? (
+          <button onClick={handleCheckoutButtonClick}>
+            Proceed to checkout
+          </button>
+        ) : (
+          <Button disabled>Login to checkout!</Button>
+        )}
       </div>
     </div>
   );

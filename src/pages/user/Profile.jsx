@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import StandardBox from "../../components/standardBox.jsx";
 export default function Profile() {
-  const user = useSelector((state) => state.authReducer.user);
+  const user = useSelector((state) => state.auth.user);
   useEffect(() => {
     const image = document.querySelector(".details-image");
     if (image) {

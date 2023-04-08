@@ -3,7 +3,7 @@ import Crop from "./layers/Crop";
 import { CropMenuItems } from "./layers/menu-items/crop/item";
 import { UrbanMenuItems } from "./layers/menu-items/urban/item";
 
-export default function Panel({ map, gridId }) {
+export default function Panel({ map }) {
   return (
     <div className="left-panel">
       <div className="title">

@@ -1,14 +1,27 @@
 import "../css/grid.css";
 import { useState, useEffect } from "react";
+import { useDispatch } from 'react-redux';
+import { UPDATE_CART } from "../constants";
 
 export default function Grid({
   map,
   setLayerLoad,
   showModal,
-  setShowModal,
-  onGridIdChange,
+  setShowModal
 }) {
   const [localGridId, setLocalGridId] = useState([]);
+
+  useEffect(() => {
+    const cartData = localStorage.getItem("persist:root");
+    if (cartData) {
+      const parsedCartData = JSON.parse(JSON.parse(cartData).cart);
+      if (parsedCartData && parsedCartData.items) {
+        setLocalGridId(parsedCartData.items);
+      }
+    }
+  }, []);
+
+  const dispatch = useDispatch();
 
   //controls adding & removing of india layer
   const handleIndiaLayerClick = () => {
@@ -71,7 +84,6 @@ export default function Grid({
     map.on("click", "india-layer", (e) => {
       if (e.features.length > 0) {
         let clickedStateId = e.features[0].id;
-        console.log(clickedStateId);
         let hoverState = map.getFeatureState(
           { source: "india", id: clickedStateId },
           { hover: true }
@@ -89,6 +101,7 @@ export default function Grid({
     //we will check if map has finished rendering the source on the map
     //using the idle event because even if the source is loaded
     //it takes more time to render it on the map.
+
     map.on("idle", () => {
       if (map.getSource("india") && map.isSourceLoaded("india")) {
         setLayerLoad(false);
@@ -98,7 +111,7 @@ export default function Grid({
   }
 
   useEffect(() => {
-    onGridIdChange(localGridId);
+    dispatch({ type: UPDATE_CART, payload: localGridId });
   }, [localGridId]);
 
   return (

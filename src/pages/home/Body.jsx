@@ -4,11 +4,14 @@ import { coordinatesGeocoder } from "./SearchBox";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
-import Grid from "../../components/grid";
-
+import Grid from "../../components/Grid";
+import { useDispatch, useSelector } from "react-redux";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
-export default function Body({ gridId, onGridIdChange }) {
+export default function Body() {
+
+  const dispatch = useDispatch();
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const start = {
@@ -19,7 +22,7 @@ export default function Body({ gridId, onGridIdChange }) {
   const [lng, setLng] = useState(start.center[0]);
   const [lat, setLat] = useState(start.center[1]);
   const [animationEnd, setAnimationEnd] = useState(false);
-
+  const gridId = useSelector((state) => state.cart.items);
   const [layerLoad, setLayerLoad] = useState(false);
   const [showModal, setShowModal] = useState(true);
 
@@ -105,7 +108,7 @@ export default function Body({ gridId, onGridIdChange }) {
   return (
     <>
       <div className="main-content">
-        <Panel map={map.current} gridId={gridId}></Panel>
+        <Panel map={map.current}></Panel>
         <div ref={mapContainer} className="map"></div>
         <div className="information">
           Latitude: {lat} | Longitude: {lng}
@@ -117,7 +120,6 @@ export default function Body({ gridId, onGridIdChange }) {
             setLayerLoad={setLayerLoad}
             showModal={showModal}
             setShowModal={setShowModal}
-            onGridIdChange={onGridIdChange}
           ></Grid>
         </div>
         {layerLoad && (
