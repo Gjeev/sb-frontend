@@ -6,10 +6,10 @@ import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
 import Grid from "../../components/Grid";
 import { useDispatch, useSelector } from "react-redux";
+import Tools from "../../components/Tools";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
-
   const dispatch = useDispatch();
 
   const mapContainer = useRef(null);
@@ -19,8 +19,6 @@ export default function Body() {
     zoom: 0,
   };
 
-  const [lng, setLng] = useState(start.center[0]);
-  const [lat, setLat] = useState(start.center[1]);
   const [animationEnd, setAnimationEnd] = useState(false);
   const gridId = useSelector((state) => state.cart.items);
   const [layerLoad, setLayerLoad] = useState(false);
@@ -66,12 +64,6 @@ export default function Body() {
       setAnimationEnd(true);
     });
 
-    //displays the coordinates of the mouse pointer
-    map.current.on("mousemove", (e) => {
-      setLng(e.lngLat.lng.toFixed(4));
-      setLat(e.lngLat.lat.toFixed(4));
-    });
-
     // adding search control to the map
     map.current.addControl(
       new MapboxGeocoder({
@@ -110,10 +102,10 @@ export default function Body() {
       <div className="main-content">
         <Panel map={map.current}></Panel>
         <div ref={mapContainer} className="map"></div>
-        <div className="information">
+        {/* <div className="information">
           Latitude: {lat} | Longitude: {lng}
-        </div>
-        <div className="grid-modal">
+        </div> */}
+        {/* <div className="grid-modal">
           <Grid
             map={map.current}
             layerLoad={layerLoad}
@@ -121,12 +113,19 @@ export default function Body() {
             showModal={showModal}
             setShowModal={setShowModal}
           ></Grid>
-        </div>
+        </div> */}
         {layerLoad && (
           <div className="progress-spinner">
             <Icon fill="#ffffff" stroke="#ffffff"></Icon>
           </div>
         )}
+      </div>
+      <div className="tools">
+        <Tools
+          map={map.current}
+          setLayerLoad={setLayerLoad}
+          setShowModal={setShowModal}
+        ></Tools>
       </div>
     </>
   );
