@@ -55,3 +55,26 @@
   bottom: 50px;
   left: calc(100% - 350px);
 }
+.tools {
+  position: absolute;
+  bottom: 0;
+  z-index: 999;
+  left: 8rem;
+}
+.tool{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px #51d9d900;
+  border-radius: 10px;
+}
+.tool:hover  {
+  cursor: pointer;
+}
+.tool-selected {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px #51d9d9;
+  border-radius: 10px;
+}

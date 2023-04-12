@@ -17,15 +17,19 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function Header({ gridId, onGridIdChange }) {
+export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const isUserLogged = useSelector(
-    (state) => state.authReducer.isAuthenticated
+    (state) => state.auth.isAuthenticated
   );
-  const user = useSelector((state) => state.authReducer.user);
-  const userToken = useSelector((state) => state.authReducer.token);
+  const user = useSelector((state) => state.auth.user);
+  const userToken = useSelector((state) => state.auth.token);
+
+  // gridId is referred to as cartData here (sorries)
+
+  const cartData = useSelector((state) => state.cart.items);
 
   const handleUserLogout = async () => {};
   const handleLogoutButtonClick = () => {
@@ -45,17 +49,17 @@ export default function Header({ gridId, onGridIdChange }) {
     setAnchorEl(null);
   };
 
-  const renderList = gridId.map((id) => (
-    <>
-      <MenuItem onClick={handleCartClose} key={id}>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Button variant="outlined" size="small">
-            {id}
-          </Button>
-        </Stack>
-      </MenuItem>
-    </>
-  ));
+  const renderList = cartData.map((id) => {
+    return (
+        <MenuItem onClick={handleCartClose} key={id}>
+          <Stack direction="row" spacing={1} alignItems="center">
+            <Button variant="outlined" size="small">
+              {id}
+            </Button>
+          </Stack>
+        </MenuItem>
+    );
+  });
 
   return (
     <header>
@@ -103,7 +107,7 @@ export default function Header({ gridId, onGridIdChange }) {
                 onClick={handleCartClick}
                 color="inherit"
               >
-                <Badge badgeContent={gridId.length} color="secondary">
+                <Badge badgeContent={cartData.length} color="secondary">
                   <ShoppingCartIcon />
                 </Badge>
               </IconButton>
@@ -123,10 +127,9 @@ export default function Header({ gridId, onGridIdChange }) {
                 horizontal: -10,
               }}
             >
-              {gridId.length > 0 ? (
+              {cartData.length > 0 ? (
                 renderList
               ) : (
-                <>
                   <MenuItem>
                     <Typography
                       variant="subtitle1"
@@ -135,11 +138,9 @@ export default function Header({ gridId, onGridIdChange }) {
                       Your cart is empty. High class reports, few clicks away.
                     </Typography>
                   </MenuItem>
-                </>
               )}
               <MenuItem>
-                {gridId.length > 0 ? (
-                  <>
+                {cartData.length > 0 ? (
                     <Button
                       variant="contained"
                       color="info"
@@ -149,7 +150,6 @@ export default function Header({ gridId, onGridIdChange }) {
                     >
                       Checkout
                     </Button>
-                  </>
                 ) : null}
               </MenuItem>
             </Menu>
@@ -164,6 +164,63 @@ export default function Header({ gridId, onGridIdChange }) {
       ) : (
         <>
           <div className="buttons-header">
+            <div className="icons" onClick={handleCartClick}>
+              <IconButton
+                aria-controls="cart-menu"
+                aria-haspopup="true"
+                onClick={handleCartClick}
+                color="inherit"
+              >
+                <Badge badgeContent={cartData.length} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            </div>
+            <Menu
+              id="cart-menu"
+              aria-labelledby="demo-positioned-button"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleCartClose}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: 0,
+                horizontal: -10,
+              }}
+            >
+              {cartData.length > 0 ? (
+                renderList
+              ) : (
+                <>
+                  <MenuItem>
+                    <Typography
+                      variant="subtitle1"
+                      sx={{ py: 2, textAlign: "center" }}
+                    >
+                      Your cart is empty. High class reports, few clicks away.
+                    </Typography>
+                  </MenuItem>
+                </>
+              )}
+              <MenuItem>
+                {cartData.length > 0 ? (
+                  <>
+                    <Button
+                      variant="contained"
+                      color="info"
+                      component="a"
+                      href="/cart"
+                      rel="noopener"
+                    >
+                      Checkout
+                    </Button>
+                  </>
+                ) : null}
+              </MenuItem>
+            </Menu>
             <Button className="buttonhome" component={Link} to="/login">
               LOG IN
             </Button>

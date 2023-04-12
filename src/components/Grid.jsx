@@ -1,26 +1,39 @@
 import "../css/grid.css";
 import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { UPDATE_CART } from "../constants";
+import Tooltip from "@mui/material/Tooltip";
+import GridOnIcon from "@mui/icons-material/GridOn";
 
-export default function Grid({
-  map,
-  setLayerLoad,
-  showModal,
-  setShowModal,
-  onGridIdChange,
-}) {
+export default function Grid({ map, setLayerLoad, setShowModal }) {
   const [localGridId, setLocalGridId] = useState([]);
+  const [border, setBorder] = useState(false);
+
+  useEffect(() => {
+    const cartData = localStorage.getItem("persist:root");
+    if (cartData) {
+      const parsedCartData = JSON.parse(JSON.parse(cartData).cart);
+      if (parsedCartData && parsedCartData.items) {
+        setLocalGridId(parsedCartData.items);
+      }
+    }
+  }, []);
+
+  const dispatch = useDispatch();
 
   //controls adding & removing of india layer
   const handleIndiaLayerClick = () => {
-    addIndiaLayer();
-    setLayerLoad(true);
-  };
-  const handleRemoveIndiaLayer = () => {
-    map.removeLayer("india-layer");
-    map.removeLayer("state-borders");
-    map.removeSource("india");
-
-    setShowModal(true);
+    if (!border) {
+      addIndiaLayer();
+      setLayerLoad(true);
+      setBorder(true);
+    } else if (border) {
+      map.removeLayer("india-layer");
+      map.removeLayer("state-borders");
+      map.removeSource("india");
+      setShowModal(true);
+      setBorder(false);
+    }
   };
 
   function handleAdd(id) {
@@ -71,7 +84,6 @@ export default function Grid({
     map.on("click", "india-layer", (e) => {
       if (e.features.length > 0) {
         let clickedStateId = e.features[0].id;
-        console.log(clickedStateId);
         let hoverState = map.getFeatureState(
           { source: "india", id: clickedStateId },
           { hover: true }
@@ -89,6 +101,7 @@ export default function Grid({
     //we will check if map has finished rendering the source on the map
     //using the idle event because even if the source is loaded
     //it takes more time to render it on the map.
+
     map.on("idle", () => {
       if (map.getSource("india") && map.isSourceLoaded("india")) {
         setLayerLoad(false);
@@ -98,27 +111,22 @@ export default function Grid({
   }
 
   useEffect(() => {
-    onGridIdChange(localGridId);
+    dispatch({ type: UPDATE_CART, payload: localGridId });
   }, [localGridId]);
 
   return (
-    <div className="button-box">
-      {showModal && (
-        <>
-          Want to get detailed information reports on our layers?
-          <br></br>
-          Go to your desired location and click on the button.
-          <button onClick={handleIndiaLayerClick}>
-            Proceed to Grid selection
-          </button>
-        </>
-      )}
-      {!showModal && (
-        <>
-          Click inside a grid to select it. Don't want to select any grid?
-          <button onClick={handleRemoveIndiaLayer}>Remove Grid layer</button>
-        </>
-      )}
-    </div>
+    <Tooltip title="select grid">
+      <div
+        className={border ? "tool-selected" : "tool"}
+        onClick={handleIndiaLayerClick}
+      >
+        <GridOnIcon
+          sx={{
+            fontSize: "1em",
+            padding: "0.25em",
+          }}
+        />
+      </div>
+    </Tooltip>
   );
 }

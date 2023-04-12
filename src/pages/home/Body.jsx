@@ -4,11 +4,15 @@ import { coordinatesGeocoder } from "./SearchBox";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
-import Grid from "../../components/grid";
-
+import Grid from "../../components/Grid";
+import { useDispatch, useSelector } from "react-redux";
+import Tools from "../../components/Tools";
+import Popup from "./Popup";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
-export default function Body({ gridId, onGridIdChange }) {
+export default function Body() {
+  const dispatch = useDispatch();
+
   const mapContainer = useRef(null);
   const map = useRef(null);
   const start = {
@@ -16,12 +20,18 @@ export default function Body({ gridId, onGridIdChange }) {
     zoom: 0,
   };
 
-  const [lng, setLng] = useState(start.center[0]);
-  const [lat, setLat] = useState(start.center[1]);
   const [animationEnd, setAnimationEnd] = useState(false);
-
+  const gridId = useSelector((state) => state.cart.items);
   const [layerLoad, setLayerLoad] = useState(false);
   const [showModal, setShowModal] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
+  const handleShowPopup = (bool) => {
+    setShowPopup(bool);
+  };
+  const [showPanel, setShowPanel] = useState(false);
+  const handleShowPanel = (bool) => {
+    setShowPanel(bool);
+  };
 
   useEffect(() => {
     if (map.current) return;
@@ -57,16 +67,18 @@ export default function Body({ gridId, onGridIdChange }) {
         easing: (t) => t,
       });
     }
-    // spinGlobe();
+    spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);
     });
 
-    //displays the coordinates of the mouse pointer
-    map.current.on("mousemove", (e) => {
-      setLng(e.lngLat.lng.toFixed(4));
-      setLat(e.lngLat.lat.toFixed(4));
+    map.current.on("zoom", () => {
+      let zoom = map.current.getZoom();
+      if (zoom >= 6) {
+        handleShowPopup(true);
+        console.log(zoom);
+      }
     });
 
     // adding search control to the map
@@ -81,6 +93,7 @@ export default function Body({ gridId, onGridIdChange }) {
       })
     );
   }, []);
+
   useEffect(() => {
     if (animationEnd) {
       function getLocation() {
@@ -105,26 +118,28 @@ export default function Body({ gridId, onGridIdChange }) {
   return (
     <>
       <div className="main-content">
-        <Panel map={map.current} gridId={gridId}></Panel>
+        {showPopup && (
+          <Popup
+            showPopup={showPopup}
+            handleShowPopup={handleShowPopup}
+            handleShowPanel={handleShowPanel}
+          ></Popup>
+        )}
+        <Panel map={map.current}></Panel>
         <div ref={mapContainer} className="map"></div>
-        <div className="information">
-          Latitude: {lat} | Longitude: {lng}
-        </div>
-        <div className="grid-modal">
-          <Grid
-            map={map.current}
-            layerLoad={layerLoad}
-            setLayerLoad={setLayerLoad}
-            showModal={showModal}
-            setShowModal={setShowModal}
-            onGridIdChange={onGridIdChange}
-          ></Grid>
-        </div>
         {layerLoad && (
           <div className="progress-spinner">
             <Icon fill="#ffffff" stroke="#ffffff"></Icon>
           </div>
         )}
+      </div>
+      <div className="tools">
+        <Tools
+          map={map.current}
+          setLayerLoad={setLayerLoad}
+          setShowModal={setShowModal}
+          showPanel={showPanel}
+        ></Tools>
       </div>
     </>
   );
