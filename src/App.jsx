@@ -4,18 +4,18 @@ import Body from "./pages/home/Body.jsx";
 import Login from "./pages/user/Login.jsx";
 import SignUp from "./pages/user/SignUp.jsx";
 import About from "./pages/about/About.jsx";
-import "./css/styles.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Driver from "driver.js";
-import { useState, useEffect } from "react";
-import "driver.js/dist/driver.min.css";
+import { useState } from "react";
 import ContactUs from "./pages/contact/ContactUs.jsx";
 import Cart from "./pages/checkout/Cart";
 import { steps } from "./data/driver.js";
 import Profile from "./pages/user/Profile.jsx";
 
+import "./css/styles.css";
+import "driver.js/dist/driver.min.css";
+
 export default function App() {
-  const [open, setOpen] = useState(false);
 
   // Driver.js tutorial
   const [driver, setDriver] = useState(null);

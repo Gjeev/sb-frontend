@@ -6,7 +6,12 @@ import { useEffect, useState } from "react";
 import Grid from "./Grid";
 //  css in body.css
 
-export default function Tools({ map, setLayerLoad, setShowModal }) {
+export default function Tools({
+  map,
+  setLayerLoad,
+  setShowModal,
+  showPanel,
+}) {
   const [lng, setLng] = useState(null);
   const [lat, setLat] = useState(null);
 
@@ -50,29 +55,37 @@ export default function Tools({ map, setLayerLoad, setShowModal }) {
           </p>
         </Box>
       )}
-      <Tooltip title="select a point">
-        <div className="tool">
-          <PlaceIcon
-            sx={{
-              fontSize: "1em",
-              padding: "0.5em",
-            }}
-          />
-        </div>
-      </Tooltip>
+      {showPanel && (
+        <>
+          <Tooltip title="select a point">
+            <div className="tool">
+              <PlaceIcon
+                sx={{
+                  fontSize: "1em",
+                  padding: "0.5em",
+                }}
+              />
+            </div>
+          </Tooltip>
 
-      <Tooltip title="draw a polygon">
-        <div className="tool">
-          <TimelineIcon
-            sx={{
-              fontSize: "1em",
-              padding: "0.5em",
-            }}
-          />
-        </div>
-      </Tooltip>
+          <Tooltip title="draw a polygon">
+            <div className="tool">
+              <TimelineIcon
+                sx={{
+                  fontSize: "1em",
+                  padding: "0.5em",
+                }}
+              />
+            </div>
+          </Tooltip>
 
-      <Grid map={map} setLayerLoad={setLayerLoad} setShowModal={setShowModal}></Grid>
+          <Grid
+            map={map}
+            setLayerLoad={setLayerLoad}
+            setShowModal={setShowModal}
+          ></Grid>
+        </>
+      )}
     </Box>
   );
 }

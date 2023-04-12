@@ -7,6 +7,7 @@ import Icon from "../../components/svg";
 import Grid from "../../components/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import Tools from "../../components/Tools";
+import Popup from "./Popup";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
@@ -23,6 +24,14 @@ export default function Body() {
   const gridId = useSelector((state) => state.cart.items);
   const [layerLoad, setLayerLoad] = useState(false);
   const [showModal, setShowModal] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
+  const handleShowPopup = (bool) => {
+    setShowPopup(bool);
+  };
+  const [showPanel, setShowPanel] = useState(false);
+  const handleShowPanel = (bool) => {
+    setShowPanel(bool);
+  };
 
   useEffect(() => {
     if (map.current) return;
@@ -58,10 +67,18 @@ export default function Body() {
         easing: (t) => t,
       });
     }
-    // spinGlobe();
+    spinGlobe();
 
     map.current.on("moveend", () => {
       setAnimationEnd(true);
+    });
+
+    map.current.on("zoom", () => {
+      let zoom = map.current.getZoom();
+      if (zoom >= 6) {
+        handleShowPopup(true);
+        console.log(zoom);
+      }
     });
 
     // adding search control to the map
@@ -76,6 +93,7 @@ export default function Body() {
       })
     );
   }, []);
+
   useEffect(() => {
     if (animationEnd) {
       function getLocation() {
@@ -100,20 +118,15 @@ export default function Body() {
   return (
     <>
       <div className="main-content">
+        {showPopup && (
+          <Popup
+            showPopup={showPopup}
+            handleShowPopup={handleShowPopup}
+            handleShowPanel={handleShowPanel}
+          ></Popup>
+        )}
         <Panel map={map.current}></Panel>
         <div ref={mapContainer} className="map"></div>
-        {/* <div className="information">
-          Latitude: {lat} | Longitude: {lng}
-        </div> */}
-        {/* <div className="grid-modal">
-          <Grid
-            map={map.current}
-            layerLoad={layerLoad}
-            setLayerLoad={setLayerLoad}
-            showModal={showModal}
-            setShowModal={setShowModal}
-          ></Grid>
-        </div> */}
         {layerLoad && (
           <div className="progress-spinner">
             <Icon fill="#ffffff" stroke="#ffffff"></Icon>
@@ -125,6 +138,7 @@ export default function Body() {
           map={map.current}
           setLayerLoad={setLayerLoad}
           setShowModal={setShowModal}
+          showPanel={showPanel}
         ></Tools>
       </div>
     </>
