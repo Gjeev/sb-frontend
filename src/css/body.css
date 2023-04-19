@@ -78,3 +78,6 @@
   border: solid 2px #51d9d9;
   border-radius: 10px;
 }
+.mapboxgl-ctrl-bottom-right {
+  margin: 0 10px 10px 0;
+}

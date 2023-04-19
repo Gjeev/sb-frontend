@@ -36,12 +36,12 @@ export default function Grid({ map, setLayerLoad, setShowModal }) {
     }
   };
 
-  function handleAdd(id) {
+  function handleAdd(data) {
     setLocalGridId((prevState) => {
-      if (prevState.includes(id)) {
-        return prevState.filter((item) => item !== id);
+      if (prevState.some((feature) => feature.properties.id === data.properties.id)) {
+        return prevState.filter((feature) => feature.properties.id !== data.properties.id);
       } else {
-        return [...prevState, id];
+        return [...prevState, data];
       }
     });
   }
@@ -84,6 +84,7 @@ export default function Grid({ map, setLayerLoad, setShowModal }) {
     map.on("click", "india-layer", (e) => {
       if (e.features.length > 0) {
         let clickedStateId = e.features[0].id;
+        let clickedGridData = e.features[0];
         let hoverState = map.getFeatureState(
           { source: "india", id: clickedStateId },
           { hover: true }
@@ -92,7 +93,7 @@ export default function Grid({ map, setLayerLoad, setShowModal }) {
           { source: "india", id: clickedStateId },
           { hover: !hoverState.hover }
         );
-        handleAdd(clickedStateId);
+        handleAdd(clickedGridData);
       }
     });
 

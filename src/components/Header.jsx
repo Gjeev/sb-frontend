@@ -49,12 +49,12 @@ export default function Header() {
     setAnchorEl(null);
   };
 
-  const renderList = cartData.map((id) => {
+  const renderList = cartData.map((item) => {
     return (
-        <MenuItem onClick={handleCartClose} key={id}>
+        <MenuItem onClick={handleCartClose} key={item.properties.id}>
           <Stack direction="row" spacing={1} alignItems="center">
             <Button variant="outlined" size="small">
-              {id}
+              {item.properties.id}
             </Button>
           </Stack>
         </MenuItem>

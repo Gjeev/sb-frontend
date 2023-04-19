@@ -1,10 +1,10 @@
 let CropMenuItems = [
-    // {
-    //   id: 0,
-    //   name: "Sugarcane in Uttar Pradesh",
-    //   url: "/images/sugar-cane-icon.svg",
-    //   state: "UP",
-    // },
+    {
+      id: 0,
+      name: "Sugarcane",
+      url: "/images/sugar-cane-icon.svg",
+      state: "UP",
+    },
     // {
     //   id: 1,
     //   name: "Rice in Punjab",
@@ -19,13 +19,13 @@ let CropMenuItems = [
     // },
     {
       id: 3,
-      name: "Rice in Uttar Pradesh",
+      name: "Rice",
       url: "/images/grain-rice-icon.svg",
       state: "WB",
     },
     {
       id: 4,
-      name: "India Wide Vegetation",
+      name: "Vegetation",
       url: "/images/farm-color-icon.svg",
       state: "IN",
     },
