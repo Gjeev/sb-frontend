@@ -4,7 +4,6 @@ import { coordinatesGeocoder } from "./SearchBox";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect } from "react";
 import Icon from "../../components/svg";
-import Grid from "../../components/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import Tools from "../../components/Tools";
 import Popup from "./Popup";
@@ -38,7 +37,7 @@ export default function Body() {
     // initialize map only once
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
-      style: "mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf",
+      style: "mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd",
       projection: "globe",
       center: start.center,
       zoom: start.zoom,
@@ -77,7 +76,6 @@ export default function Body() {
       let zoom = map.current.getZoom();
       if (zoom >= 6) {
         handleShowPopup(true);
-        console.log(zoom);
       }
     });
 

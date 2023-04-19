@@ -1,7 +1,7 @@
 const UrbanMenuItems = [
     {
       id: 0,
-      name: "India wide built up",
+      name: "Built up",
       url: "/images/homepage-green-icon.svg",
       state: "IN",
     }

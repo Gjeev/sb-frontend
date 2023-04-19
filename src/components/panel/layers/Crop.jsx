@@ -6,29 +6,38 @@ export default function Crop({ item, map }) {
     setIsActive(!isActive);
 
     switch (layer) {
-      case "Rice in Uttar Pradesh":
+      case "Rice":
         if (!isActive) {
           map.setStyle("mapbox://styles/jemm/clfy1iirn000k01o3a41wlzt5");
         }
         if (isActive) {
-          map.setStyle("mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf");
+          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
         }
         break;
 
-      case "India wide built up":
+      case "Built Up":
         if (!isActive) {
           map.setStyle("mapbox://styles/jemm/clf2e7e07007101qocb6hpjl4");
         }
         if (isActive) {
-          map.setStyle("mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf");
+          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
         }
         break;
-      case "India Wide Vegetation":
+      case "Vegetation":
         if (!isActive) {
-          map.setStyle("mapbox://styles/jemm/clg13bg3c001z01pnhlgd3ln7");
+          map.setStyle("mapbox://styles/jemm/clf465b1r001i01o961bjki7v");
         }
         if (isActive) {
-          map.setStyle("mapbox://styles/jemm/cle5ppqxd003y01qmqn05pwpf");
+          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
+        }
+        break;
+
+      case "Sugarcane":
+        if (!isActive) {
+          map.setStyle("mapbox://styles/jemm/clghwctsw004w01pe48gt2fb3");
+        }
+        if (isActive) {
+          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
         }
         break;
       default:
