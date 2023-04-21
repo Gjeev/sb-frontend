@@ -83,6 +83,7 @@ export default function Grid({ map, setLayerLoad, setShowModal }) {
     });
     map.on("click", "india-layer", (e) => {
       if (e.features.length > 0) {
+        console.log("clicked")
         let clickedStateId = e.features[0].id;
         let clickedGridData = e.features[0];
         let hoverState = map.getFeatureState(

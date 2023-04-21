@@ -9,7 +9,7 @@ import { useState } from "react";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import InsightsIcon from "@mui/icons-material/Insights";
 
-export default function InsuranceComp({ handleShowPopup, handleShowPanel }) {
+export default function InsuranceComp({ handleClose, handleShowPanel }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -38,7 +38,7 @@ export default function InsuranceComp({ handleShowPopup, handleShowPanel }) {
         sx={buttonStyle}
         onClick={() => {
           handleShowPanel(true);
-          handleShowPopup(false);
+          handleClose();
         }}
       >
         Insurance Companies

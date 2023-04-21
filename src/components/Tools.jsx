@@ -5,9 +5,17 @@ import Tooltip from "@mui/material/Tooltip";
 import { useEffect, useState } from "react";
 import Grid from "./Grid";
 import { useDispatch } from "react-redux";
+import Setting from "./Setting";
 //  css in body.css
 
-export default function Tools({ map, setLayerLoad, setShowModal, showPanel }) {
+export default function Tools({
+  map,
+  setLayerLoad,
+  setShowModal,
+  showPanel,
+  showSetting,
+  handleShowPopup,
+}) {
   const dispatch = useDispatch();
   const [lng, setLng] = useState(null);
   const [lat, setLat] = useState(null);
@@ -37,9 +45,10 @@ export default function Tools({ map, setLayerLoad, setShowModal, showPanel }) {
         );
         if (polygon) {
           setPolygons((prevPolygons) => [...prevPolygons, polygon]);
+          // dispatch({ type: "UPDATE_CART", payload: polygons });
         }
       });
-  
+
       map.on("draw.delete", (event) => {
         const { features } = event;
         const polygon = features.find(
@@ -49,6 +58,7 @@ export default function Tools({ map, setLayerLoad, setShowModal, showPanel }) {
           setPolygons((prevPolygons) =>
             prevPolygons.filter((p) => p.id !== polygon.id)
           );
+          // dispatch({ type: "UPDATE_CART", payload: polygons });
         }
       });
     }
@@ -56,7 +66,7 @@ export default function Tools({ map, setLayerLoad, setShowModal, showPanel }) {
 
   useEffect(() => {
     dispatch({ type: "UPDATE_CART", payload: polygons });
-  },[polygons]);
+  }, [polygons]);
 
   const toggleDrawTools = () => {
     if (drawToolsVisible) {
@@ -127,6 +137,13 @@ export default function Tools({ map, setLayerLoad, setShowModal, showPanel }) {
             setLayerLoad={setLayerLoad}
             setShowModal={setShowModal}
           ></Grid>
+        </>
+      )}
+      {showSetting && (
+        <>
+          <Tooltip title="open tools modal">
+            <Setting handleShowPopup={handleShowPopup}></Setting>
+          </Tooltip>
         </>
       )}
     </Box>

@@ -6,7 +6,6 @@ import { Box, Typography } from "@mui/material";
 
 export default function Panel({ map }) {
   return (
-    <div className="left-panel">
       <Box
         sx={{
           display: "flex",
@@ -39,6 +38,5 @@ export default function Panel({ map }) {
 
         </Box>
       </Box>
-    </div>
   );
 }
