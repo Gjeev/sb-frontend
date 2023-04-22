@@ -9,7 +9,9 @@
   width: calc(100vw - 8rem);
   background-color: #0d1b1c;
 }
-
+.left-panel {
+  height: calc(100vh - 4em);
+}
 .mapboxgl-ctrl-geocoder--input {
   height: 2.25rem;
 }
@@ -80,4 +82,16 @@
 }
 .mapboxgl-ctrl-bottom-right {
   margin: 0 10px 10px 0;
+}
+.animate {
+  animation-name: flash;
+  animation-duration: 1s;
+  animation-iteration-count: 2;
+  animation-fill-mode: both;
+  transform: scale(1.2);
+}
+@keyframes flash {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
 }

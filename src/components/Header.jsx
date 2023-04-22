@@ -21,9 +21,7 @@ export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const isUserLogged = useSelector(
-    (state) => state.auth.isAuthenticated
-  );
+  const isUserLogged = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
   const userToken = useSelector((state) => state.auth.token);
 
@@ -51,13 +49,19 @@ export default function Header() {
 
   const renderList = cartData.map((item) => {
     return (
-        <MenuItem onClick={handleCartClose} key={item.properties.id}>
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Button variant="outlined" size="small">
-              {item.properties.id}
-            </Button>
-          </Stack>
-        </MenuItem>
+      <MenuItem onClick={handleCartClose} key={item.id}>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <Button variant="outlined" size="small">
+            {item.geometry.type === "Polygon"
+              ? (() => {
+                  let truncatedId = item.id.substring(0, 5);
+                  let farmName = `Farm-${truncatedId}`;
+                  return farmName;
+                })()
+              : item.id}
+          </Button>
+        </Stack>
+      </MenuItem>
     );
   });
 
@@ -130,26 +134,26 @@ export default function Header() {
               {cartData.length > 0 ? (
                 renderList
               ) : (
-                  <MenuItem>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ py: 2, textAlign: "center" }}
-                    >
-                      Your cart is empty. High class reports, few clicks away.
-                    </Typography>
-                  </MenuItem>
+                <MenuItem>
+                  <Typography
+                    variant="subtitle1"
+                    sx={{ py: 2, textAlign: "center" }}
+                  >
+                    Your cart is empty. High class reports, few clicks away.
+                  </Typography>
+                </MenuItem>
               )}
               <MenuItem>
                 {cartData.length > 0 ? (
-                    <Button
-                      variant="contained"
-                      color="info"
-                      component="a"
-                      href="/cart"
-                      rel="noopener"
-                    >
-                      Checkout
-                    </Button>
+                  <Button
+                    variant="contained"
+                    color="info"
+                    component="a"
+                    href="/cart"
+                    rel="noopener"
+                  >
+                    Checkout
+                  </Button>
                 ) : null}
               </MenuItem>
             </Menu>
