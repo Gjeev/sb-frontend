@@ -40,6 +40,24 @@ export default function Crop({ item, map }) {
           map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
         }
         break;
+
+        case "Wheat":
+          if (!isActive) {
+            map.setStyle("mapbox://styles/jemm/clhg5qenk01bv01pgcci3auap");
+          }
+          if (isActive) {
+            map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
+          }
+          break;
+
+          case "LULC":
+            if (!isActive) {
+              map.setStyle("mapbox://styles/jemm/clhg98ttf01be01pgf3rr5k5z");
+            }
+            if (isActive) {
+              map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
+            }
+            break;
       default:
         break;
     }

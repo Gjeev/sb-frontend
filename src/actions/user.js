@@ -20,7 +20,9 @@ export const login =
     try {
       const { data } = await api.signIn(formData);
       dispatch({ type: LOGIN, data });
-      history.push("/");
+      const prevRoute = sessionStorage.getItem("prevRoute") || "/";
+      sessionStorage.removeItem("prevRoute");
+      history.push(prevRoute);
     } catch (error) {
       const errorMessage = error.response.data.message;
       switch (errorMessage) {

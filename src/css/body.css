@@ -85,7 +85,7 @@
 }
 .animate {
   animation-name: flash;
-  animation-duration: 1s;
+  animation-duration: infinite;
   animation-iteration-count: 2;
   animation-fill-mode: both;
   transform: scale(1.2);

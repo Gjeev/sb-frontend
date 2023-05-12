@@ -15,7 +15,6 @@ import {
   Stack,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function Header() {
   const history = useHistory();
@@ -27,7 +26,7 @@ export default function Header() {
 
   // gridId is referred to as cartData here (sorries)
 
-  const cartData = useSelector((state) => state.cart.items);
+  const cartData = useSelector((state) => state.cart.items || []);
 
   const handleUserLogout = async () => {};
   const handleLogoutButtonClick = () => {

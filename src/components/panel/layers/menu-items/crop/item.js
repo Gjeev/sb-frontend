@@ -29,5 +29,12 @@ let CropMenuItems = [
       url: "/images/farm-color-icon.svg",
       state: "IN",
     },
+    {
+      id: 5,
+      name: "Wheat",
+      url: "/images/grain-rice-icon.svg",
+      state: "IN",
+
+    },
   ];
 export { CropMenuItems };

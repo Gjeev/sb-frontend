@@ -1,58 +1,65 @@
 import "../../css/cart.css";
-import { dropPaymentForm } from "./displayPaymentForm";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { layers } from "./layers";
-import { Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { UPDATE_CART } from "../../constants";
+import { useHistory } from "react-router-dom";
 
 export default function Cart() {
-  const gridId = useSelector((state) => state.cart.items);
+  const history = useHistory();
+  const cartData = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
   function handleRemoveClick(index) {
-    const newGridId = [...gridId];
-    newGridId.splice(index, 1);
-    dispatch({ type: UPDATE_CART, payload: newGridId });
+    const newcartData = [...cartData];
+    newcartData.splice(index, 1);
+    dispatch({ type: UPDATE_CART, payload: newcartData });
   }
 
   const user = useSelector((state) => state.auth.user);
 
   const handleCheckoutButtonClick = () => {
-    let paymentSessionId = "";
-    axios
-      .post("http://localhost:5000/order/:id", {
-        order_id: "order_123", // some Math.Random() NOTE: ORDER ID'S ARE DIFFERENT FROM USER id's
-        order_amount: cartPrice,
-        order_currency: "INR",
-        // need to get phone number and id
-        customer_details: {
-          customer_id: user._id,
-          customer_name: user.name,
-          customer_email: user.email,
-          customer_phone: user.phone,
-        },
-        order_meta: {
-          return_url: "", // make a profile page for user and redirect to that
-        },
-      })
-      .then((res) => {
-        paymentSessionId = res.data.paymentSessionId; // or res.paymentSessionId
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (!user) {
+      sessionStorage.setItem("prevRoute", window.location.pathname);
+      history.push("/login");
+    }
+    if (user) {
+      let paymentSessionId = "";
+      axios
+        .post("http://localhost:5000/order", {
+          order_id: `order-${Math.floor(Math.random() * 1000000000)}`,
+          order_amount: cartPrice,
+          order_currency: "INR",
+          customer_details: {
+            customer_id: user.name,
+            customer_name: user.name,
+            customer_email: user.email,
+            customer_phone: "9999999999",
+          },
+          order_meta: {
+            return_url: "http://localhost:5173/profile/order_id={order_id}",
+            notify_url: "https://9490-2405-201-e001-5254-d0fd-22e3-4711-52fb.ngrok-free.app/webhook",
+          },
+        })
+        .then((res) => {
+          paymentSessionId = res.data.payment_session_id;
+          console.log("frontend", paymentSessionId);
+          const cashfree = new Cashfree(paymentSessionId);
 
-    dropPaymentForm(paymentSessionId);
+          cashfree.redirect();
+        })
+        .catch((err) => {
+          console.log("error in posting to backend", err);
+        });
+    }
   };
 
   const [selectedLayers, setSelectedLayers] = useState([]);
-  const [cartPrice, setCartPrice] = useState(gridId.length * 500);
+  const [cartPrice, setCartPrice] = useState(cartData.length * 500);
   useEffect(() => {
-    setCartPrice(gridId.length * 500);
-  }, [gridId]);
+    setCartPrice(cartData.length * 500);
+  }, [cartData]);
 
   const handleLayerClick = (layer, index) => {
     setSelectedLayers((prevSelectedLayers) => {
@@ -75,11 +82,19 @@ export default function Cart() {
       <div className="cart-box">
         <div className="cart-header">Grids added to cart</div>
         <div className="cart-content">
-          {gridId.map((grid, index) => (
+          {cartData.map((item, index) => (
             <>
               <div className="cart-item-list" key={index}>
-                <div className="cart-item">{grid}</div>
-                <div className="layer-checklist">
+                <div className="cart-item">
+                  {item.geometry.type === "Polygon"
+                    ? (() => {
+                        let truncatedId = item.id.substring(0, 5);
+                        let farmName = `Farm-${truncatedId}`;
+                        return farmName;
+                      })()
+                    : item.id}
+                </div>
+                {/* <div className="layer-checklist">
                   {layers.map((layer) => (
                     <>
                       <button
@@ -95,7 +110,7 @@ export default function Cart() {
                       </button>
                     </>
                   ))}
-                </div>
+                </div> */}
                 <div className="cart-item-remove">
                   <button onClick={handleRemoveClick.bind(this, index)}>
                     remove
@@ -111,13 +126,7 @@ export default function Cart() {
         </div>
       </div>
       <div className="checkout">
-        {user ? (
-          <button onClick={handleCheckoutButtonClick}>
-            Proceed to checkout
-          </button>
-        ) : (
-          <Button disabled>Login to checkout!</Button>
-        )}
+        <button onClick={handleCheckoutButtonClick}>Proceed to checkout</button>
       </div>
     </div>
   );
