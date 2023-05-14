@@ -74,9 +74,9 @@ export default function Header() {
             <Button className="buttonhome" onClick={handleLogoutButtonClick}>
               LOG OUT
             </Button>
-            {/* <Button className="buttonhome" onClick={handlePDFCheck}>
+            <Button className="buttonhome" onClick={handlePDFCheck}>
                 PDF check
-              </Button> */}
+              </Button>
           </div>
         </>
       ) : (

@@ -21,7 +21,7 @@ export default function ContactUs() {
         setLoading(true);
         setTimeout(() => {
             setLoading(false);
-            window.location.reload();
+            // window.location.reload();
         }, 2500);
 
         

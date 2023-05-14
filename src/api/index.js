@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const PORT = import.meta.env.VITE_SERVER_PORT;
+// const base = `http://35.244.21.108:${PORT}`;
 const base = `http://localhost:${PORT}`;
 const API = axios.create({ baseURL: base });
 
