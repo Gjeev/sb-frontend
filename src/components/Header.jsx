@@ -47,17 +47,25 @@ export default function Header() {
   };
 
   const renderList = cartData.map((item) => {
+    let buttonText = "";
+    if (item.geometry) {
+      switch (item.geometry.type) {
+        case "Point":
+          buttonText = `Farm-${item.geometry.coordinates[1].toFixed(4)}-${item.geometry.coordinates[0].toFixed(4)}`;
+          break;
+        case "Polygon":
+          buttonText = `Farm-${item.id.substring(0, 5)}`;
+          break;
+      }
+    } else {
+      buttonText = item.id;
+    }
+
     return (
       <MenuItem onClick={handleCartClose} key={item.id}>
         <Stack direction="row" spacing={1} alignItems="center">
           <Button variant="outlined" size="small">
-            {item.geometry.type === "Polygon"
-              ? (() => {
-                  let truncatedId = item.id.substring(0, 5);
-                  let farmName = `Farm-${truncatedId}`;
-                  return farmName;
-                })()
-              : item.id}
+            {buttonText}
           </Button>
         </Stack>
       </MenuItem>
