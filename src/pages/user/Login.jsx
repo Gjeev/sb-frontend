@@ -67,8 +67,9 @@ export default function Login() {
     });
     try {
       dispatch({ type: "LOGIN", data: { result, token: idToken } });
-
-      history.push("/");
+      const prevRoute = sessionStorage.getItem("prevRoute") || "/";
+      sessionStorage.removeItem("prevRoute");
+      history.push(prevRoute);
     } catch (error) {
       console.log(error);
     }

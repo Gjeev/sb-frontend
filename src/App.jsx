@@ -11,6 +11,7 @@ import ContactUs from "./pages/contact/ContactUs.jsx";
 import Cart from "./pages/checkout/Cart";
 import { steps } from "./data/driver.js";
 import Profile from "./pages/user/Profile.jsx";
+import Order from "./pages/order/Order.jsx";
 
 import "./css/styles.css";
 import "driver.js/dist/driver.min.css";
@@ -30,6 +31,7 @@ export default function App() {
       }
     }
   };
+
 
   return (
     <>
@@ -72,6 +74,11 @@ export default function App() {
             <Header />
             <Profile></Profile>
           </Route>
+
+          <Route exact path="/profile/order_id=:order_id">
+            <Order></Order>
+          </Route>
+
         </Switch>
       </Router>
     </>
