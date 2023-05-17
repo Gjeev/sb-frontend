@@ -124,8 +124,7 @@ export default function Grid({ map, setLayerLoad, setShowModal }) {
       >
         <GridOnIcon
           sx={{
-            fontSize: "1em",
-            padding: "0.25em",
+            padding: "0.15em",
           }}
         />
       </div>
