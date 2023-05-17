@@ -1,121 +1,38 @@
-header {
-  height: 4em;
+.login-btn {
+  background-color: #016567;
+  height: 45px;
   display: flex;
-  justify-content: space-evenly;
+  align-items: center;
+  justify-content: center;
+  border: solid 1px white;
+  transition: none;
+}
+.login-btn:hover {
   background-color: white;
-  align-items: center;
+  color: #016567;
+  border: #016567 solid 1px;
+  border-radius: 7px;
 }
-.logosection {
+.nav-components {
   display: flex;
-  height: 100%;
   align-items: center;
-  width: 20%;
-  justify-content: center; /* chnage this later */
-  gap: 1em;
+  justify-content: space-between;
+  gap: 10px;
 }
-.logosection #logotext {
-  font-family: "Open Sans", sans-serif !important;
-  font-size: 120%;
+.cart-icon {
+  margin: 10px;
 }
-#logo {
-  width: 61px;
-  height: 61px;
-  background-image: url("/images/logo.svg");
+.cart-icon:hover {
+  color: #016567;
 }
-.picture-user {
-  width: 41px;
-  height: 41px;
-}
-.icons img {
-  width: 30px;
-  height: 30px;
-}
-.nav-items {
-  height: 100%;
-  width: 60%;
+.checkout-btn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.nav-items ul {
+.join-btns {
   display: flex;
-  gap: 1.5em;
-}
-.nav-items li {
-  list-style: none;
-}
-.nav-items a {
-  text-decoration: none;
-  color: black;
-}
-.nav-items a:hover,
-a:focus {
-  text-decoration: underline;
-  color: #333;
-}
-
-.buttons-information-header {
-  display: flex;
-  width: 40%;
-  height: 100%;
-  justify-content: space-evenly;
   align-items: center;
-  /* gap: 10px; */
-}
-.buttons-information-header .buttonhome {
-  background-color: #016567;
-  color: white;
-  border-radius: 8px;
-  border: none;
-  padding: 0.25rem 0.5rem;
-}
-.buttons-information-header .buttonhome:hover,
-.buttonhome:focus {
-  cursor: pointer;
-  background-color: #028a8d;
-}
-.buttons-header {
-  display: flex;
-  width: 20%;
-  height: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  /* gap: 10px; */
-}
-.buttons-header .buttonhome {
-  background-color: #016567;
-  color: white;
-  border-radius: 12px;
-  height: 2rem;
-  /* width: 100px; */
-  border: none;
-  padding: 1.3rem;
-  /* height: auto; */
-}
-.buttons-header .buttonhome:hover,
-.buttonhome:focus {
-  cursor: pointer;
-  background-color: #028a8d;
-}
-.buttonhome a {
-  color: white;
-  text-decoration: none;
-}
-.icons {
-  padding: 10px;
-  border-radius: 7px;
-}
-.icons:hover {
-  cursor: pointer;
-}
-.user-name {
-  border-radius: 7px;
-}
-.user-name a {
-  text-decoration: none;
-  color: black;
-}
-.user-name:hover {
-  cursor: pointer;
-  text-decoration: underline;
+  justify-content: center;
+  gap: 10px;
 }

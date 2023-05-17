@@ -23,7 +23,6 @@ export default function Tools({
   const [drawTools, setDrawTools] = useState(null);
   const [drawToolsVisible, setDrawToolsVisible] = useState(false);
   const [polygons, setPolygons] = useState([]);
-  const [changeClass, setChangeClass] = useState(false);
 
   useEffect(() => {
     if (map) {
@@ -85,20 +84,20 @@ export default function Tools({
 
   const collectPoints = () => {
     const listener = (e) => {
+      console.log(e);
       const { lng, lat } = e.lngLat;
       const clickedPoint = {
         geometry: {
-          type: "Point",
           coordinates: [lng, lat],
         },
-      } ;
+        id: String(Math.random() * 1000000),
+      };
       setPoints((prevPoints) => [...prevPoints, clickedPoint]);
 
       const marker = new Marker().setLngLat([lng, lat]).addTo(map);
       const popupContent = document.createElement("div");
       const deleteIcon = document.createElement("button");
-      deleteIcon.innerHTML =
-        'Delete';
+      deleteIcon.innerHTML = "Delete";
       deleteIcon.className = "delete-icon";
       popupContent.className = "popup-content";
       deleteIcon.addEventListener("click", () => {
@@ -106,15 +105,21 @@ export default function Tools({
       });
       const removeMarker = (marker) => {
         marker.remove();
-        markersRef.current = markersRef.current.filter((refMarker) => refMarker !== marker);
-        setPoints((prevPoints) => prevPoints.filter((point) => point !== clickedPoint));
+        markersRef.current = markersRef.current.filter(
+          (refMarker) => refMarker !== marker
+        );
+        setPoints((prevPoints) =>
+          prevPoints.filter((point) => point !== clickedPoint)
+        );
       };
 
       const popup = new Popup()
         .setDOMContent(popupContent)
         .setLngLat([lng, lat]);
 
-      popupContent.innerHTML += `Latitude: ${lat.toFixed(4)}<br>Longitude: ${lng.toFixed(4)}`;
+      popupContent.innerHTML += `Latitude: ${lat.toFixed(
+        4
+      )}<br>Longitude: ${lng.toFixed(4)}`;
       popupContent.appendChild(deleteIcon);
 
       marker.setPopup(popup);
@@ -131,7 +136,6 @@ export default function Tools({
   };
 
   const toggleCollectPoints = () => {
-    setChangeClass((prevClass) => !prevClass);
     if (!toggle) {
       collectPoints();
       setToggle(true);
@@ -140,20 +144,20 @@ export default function Tools({
         map.off("click", clickListenerRef.current);
       }
 
-      markersRef.current = []; // ???
+      markersRef.current = []; // might have to remove this
       clickListenerRef.current = null;
       setToggle(false);
     }
   };
   useEffect(() => {
     dispatch({ type: "UPDATE_CART", payload: points });
-  },[points]);
+  }, [points]);
 
   return (
     <Box
       sx={{
-        width: "calc(100vw - 8rem)",
-        height: "2em",
+        width: "100vw",
+        height: "36px",
         backdropFilter: "blur(7.3px)",
         WebkitBackdropFilter: "blur(7.3px)",
         background: "rgba(41, 22, 22, 0.57)",
@@ -172,22 +176,22 @@ export default function Tools({
             alignItems: "center",
             gap: "0.5rem",
             fontSize: "16px",
-            width: "200px",
+            width: "190px"
           }}
         >
-          <p>
             {lng}° | {lat}°
-          </p>
         </Box>
       )}
       {showPanel && (
         <>
           <Tooltip title="select a point">
-            <div className={`tool-${changeClass? "selected" : ""}`} onClick={toggleCollectPoints}>
+            <div
+              className="tool"
+              onClick={toggleCollectPoints}
+            >
               <PlaceIcon
                 sx={{
-                  fontSize: "1em",
-                  padding: "0.5em",
+                  padding: "0.15em",
                 }}
               />
             </div>
@@ -197,8 +201,7 @@ export default function Tools({
             <div className="tool" onClick={toggleDrawTools}>
               <TimelineIcon
                 sx={{
-                  fontSize: "1em",
-                  padding: "0.5em",
+                  padding: "0.15em",
                 }}
               />
             </div>

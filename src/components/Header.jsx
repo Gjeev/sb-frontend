@@ -1,11 +1,11 @@
 import "../css/header.css";
 import { Link, useHistory } from "react-router-dom";
-import { Button, Avatar } from "@mui/material";
+import { Avatar } from "@mui/material";
 import { deepOrange } from "@mui/material/colors";
 import { logout } from "../actions/user";
 import { createPdf } from "../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import {
   Badge,
   IconButton,
@@ -15,14 +15,19 @@ import {
   Stack,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
+import Navbar from "react-bootstrap/Navbar";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import Button from "react-bootstrap/Button";
+import { Dropdown } from "react-bootstrap";
 export default function Header() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const isUserLogged = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  const userToken = useSelector((state) => state.auth.token);
+  //const userToken = useSelector((state) => state.auth.token);
 
   // gridId is referred to as cartData here (sorries)
 
@@ -37,210 +42,84 @@ export default function Header() {
   const handlePDFCheck = () => {
     dispatch(createPdf());
   };
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleCartClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleCartClose = () => {
-    setAnchorEl(null);
-  };
 
-  const renderList = cartData.map((item) => {
-    let buttonText = "";
-    if (item.geometry) {
-      switch (item.geometry.type) {
-        case "Point":
-          buttonText = `Farm-${item.geometry.coordinates[1].toFixed(4)}-${item.geometry.coordinates[0].toFixed(4)}`;
-          break;
-        case "Polygon":
-          buttonText = `Farm-${item.id.substring(0, 5)}`;
-          break;
-      }
-    } else {
-      buttonText = item.id;
-    }
-
-    return (
-      <MenuItem onClick={handleCartClose} key={item.id}>
-        <Stack direction="row" spacing={1} alignItems="center">
-          <Button variant="outlined" size="small">
-            {buttonText}
-          </Button>
-        </Stack>
-      </MenuItem>
-    );
-  });
+  const CustomCartToggle = forwardRef(({ onClick }, ref) => (
+    <div
+      className="cart-icon"
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+    >
+      <Badge badgeContent={cartData.length} color="secondary">
+        <ShoppingCartIcon />
+      </Badge>
+    </div>
+  ));
 
   return (
-    <header>
-      <div className="logosection">
-        <div id="logo">
-          <img src="./images/logo.svg" alt="LOGO" />
-        </div>
-        <div id="logotext">SensingBharat</div>
-      </div>
-      <div className="nav-items">
-        <ul>
-          <li id="first">
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about" className="tut-about">
-              About
-            </a>
-          </li>
+    <div className="header">
+      <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "white" }}>
+        <Container>
+          <Navbar.Brand href="/">SensingBharat</Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <NavDropdown title="What do we do" id="collasible-nav-dropdown">
+                <NavDropdown.Item href="">Meet the team</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="/about">Our Products</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="">Our Mission</NavDropdown.Item>
+              </NavDropdown>
+              <Nav.Link href="/contactus">Contact Us</Nav.Link>
+              <Nav.Link href="">Pricing</Nav.Link>
+            </Nav>
+            <Nav>
+              {isUserLogged ? (
+                <>
+                  <Nav className="nav-components">
+                    <Nav.Link href="/profile/123">{user.name}</Nav.Link>
 
-          <li>
-            <a href="/contactus">Contact Us</a>
-          </li>
-        </ul>
-      </div>
-      {isUserLogged ? (
-        <>
-          <div className="buttons-information-header">
-            <div className="user-name">
-              <Link to="/profile/123">{user.name}</Link>
-            </div>
-            <div className="user-image picture-user">
-              <Avatar
-                sx={{ bgcolor: deepOrange[500] }}
-                alt={user.name}
-                src={user.picture}
-              >
-                {/* { {user.name.charAt(0).toUpperCase()} } */}
-              </Avatar>
-            </div>
-            <div className="icons" onClick={handleCartClick}>
-              <IconButton
-                aria-controls="cart-menu"
-                aria-haspopup="true"
-                onClick={handleCartClick}
-                color="inherit"
-              >
-                <Badge badgeContent={cartData.length} color="secondary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </div>
-            <Menu
-              id="cart-menu"
-              aria-labelledby="demo-positioned-button"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleCartClose}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: 0,
-                horizontal: -10,
-              }}
-            >
-              {cartData.length > 0 ? (
-                renderList
-              ) : (
-                <MenuItem>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{ py: 2, textAlign: "center" }}
-                  >
-                    Your cart is empty. High class reports, few clicks away.
-                  </Typography>
-                </MenuItem>
-              )}
-              <MenuItem>
-                {cartData.length > 0 ? (
-                  <Button
-                    variant="contained"
-                    color="info"
-                    component="a"
-                    href="/cart"
-                    rel="noopener"
-                  >
-                    Checkout
-                  </Button>
-                ) : null}
-              </MenuItem>
-            </Menu>
-            <Button className="buttonhome" onClick={handleLogoutButtonClick}>
-              LOG OUT
-            </Button>
-            {/* <Button className="buttonhome" onClick={handlePDFCheck}>
-                PDF check
-              </Button> */}
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="buttons-header">
-            <div className="icons" onClick={handleCartClick}>
-              <IconButton
-                aria-controls="cart-menu"
-                aria-haspopup="true"
-                onClick={handleCartClick}
-                color="inherit"
-              >
-                <Badge badgeContent={cartData.length} color="secondary">
-                  <ShoppingCartIcon />
-                </Badge>
-              </IconButton>
-            </div>
-            <Menu
-              id="cart-menu"
-              aria-labelledby="demo-positioned-button"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleCartClose}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              transformOrigin={{
-                vertical: 0,
-                horizontal: -10,
-              }}
-            >
-              {cartData.length > 0 ? (
-                renderList
+                    <Dropdown>
+                      <Dropdown.Toggle
+                        as={CustomCartToggle}
+                        id="dropdown-custom-components"
+                      ></Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {cartData.length > 0 ? (
+                          cartData.map((item) => {
+                            const farmId = `Farm-${item.id.substr(0, 4)}`;
+                            return (
+                              <Dropdown.Item key={farmId}>
+                                {farmId}
+                              </Dropdown.Item>
+                            );
+                          })
+                        ) : (
+                          <Dropdown.Item>Empty!</Dropdown.Item>
+                        )}
+                        <Dropdown.Divider />
+                        <div className="checkout-btn">
+                          <Button href="/cart">Checkout</Button>
+                        </div>
+                      </Dropdown.Menu>
+                    </Dropdown>
+                    <Button className="login-btn" onClick={handleLogoutButtonClick}>Logout</Button>
+                  </Nav>
+                </>
               ) : (
                 <>
-                  <MenuItem>
-                    <Typography
-                      variant="subtitle1"
-                      sx={{ py: 2, textAlign: "center" }}
-                    >
-                      Your cart is empty. High class reports, few clicks away.
-                    </Typography>
-                  </MenuItem>
+                  <Nav className="join-btns">
+                    <Button className="login-btn" href="/login">Login</Button>
+                    <Button className="login-btn" href="/signup">Sign Up</Button>
+                  </Nav>
                 </>
               )}
-              <MenuItem>
-                {cartData.length > 0 ? (
-                  <>
-                    <Button
-                      variant="contained"
-                      color="info"
-                      component="a"
-                      href="/cart"
-                      rel="noopener"
-                    >
-                      Checkout
-                    </Button>
-                  </>
-                ) : null}
-              </MenuItem>
-            </Menu>
-            <Button className="buttonhome" component={Link} to="/login">
-              LOG IN
-            </Button>
-            <Button className="buttonhome" component={Link} to="/signUp">
-              SIGN UP
-            </Button>
-          </div>
-        </>
-      )}
-    </header>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
   );
 }

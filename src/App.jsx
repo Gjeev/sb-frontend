@@ -17,7 +17,6 @@ import "./css/styles.css";
 import "driver.js/dist/driver.min.css";
 
 export default function App() {
-
   // Driver.js tutorial
   const [driver, setDriver] = useState(null);
   const handleTutorial = () => {
@@ -32,14 +31,15 @@ export default function App() {
     }
   };
 
-
   return (
     <>
       <Router>
         <Switch>
           <Route exact path="/">
-            <Header />
-            <Body />
+            <div className="app">
+              <Header />
+              <Body />
+            </div>
           </Route>
 
           <Route exact path="/about">
@@ -78,7 +78,6 @@ export default function App() {
           <Route exact path="/profile/order_id=:order_id">
             <Order></Order>
           </Route>
-
         </Switch>
       </Router>
     </>
