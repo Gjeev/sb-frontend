@@ -76,43 +76,49 @@ export default function Header() {
               <Nav.Link href="">Pricing</Nav.Link>
             </Nav>
             <Nav>
+              <Dropdown>
+                <Dropdown.Toggle
+                  as={CustomCartToggle}
+                  id="dropdown-custom-components"
+                ></Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {cartData.length > 0 ? (
+                    cartData.map((item) => {
+                      const farmId = `Farm-${item.id.substr(0, 4)}`;
+                      return (
+                        <Dropdown.Item key={farmId}>{farmId}</Dropdown.Item>
+                      );
+                    })
+                  ) : (
+                    <Dropdown.Item>Empty!</Dropdown.Item>
+                  )}
+                  <Dropdown.Divider />
+                  <div className="checkout-btn">
+                    <Button href="/cart">Checkout</Button>
+                  </div>
+                </Dropdown.Menu>
+              </Dropdown>
               {isUserLogged ? (
                 <>
                   <Nav className="nav-components">
                     <Nav.Link href="/profile/123">{user.name}</Nav.Link>
-
-                    <Dropdown>
-                      <Dropdown.Toggle
-                        as={CustomCartToggle}
-                        id="dropdown-custom-components"
-                      ></Dropdown.Toggle>
-                      <Dropdown.Menu>
-                        {cartData.length > 0 ? (
-                          cartData.map((item) => {
-                            const farmId = `Farm-${item.id.substr(0, 4)}`;
-                            return (
-                              <Dropdown.Item key={farmId}>
-                                {farmId}
-                              </Dropdown.Item>
-                            );
-                          })
-                        ) : (
-                          <Dropdown.Item>Empty!</Dropdown.Item>
-                        )}
-                        <Dropdown.Divider />
-                        <div className="checkout-btn">
-                          <Button href="/cart">Checkout</Button>
-                        </div>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                    <Button className="login-btn" onClick={handleLogoutButtonClick}>Logout</Button>
+                    <Button
+                      className="login-btn"
+                      onClick={handleLogoutButtonClick}
+                    >
+                      Logout
+                    </Button>
                   </Nav>
                 </>
               ) : (
                 <>
                   <Nav className="join-btns">
-                    <Button className="login-btn" href="/login">Login</Button>
-                    <Button className="login-btn" href="/signup">Sign Up</Button>
+                    <Button className="login-btn" href="/login">
+                      Login
+                    </Button>
+                    <Button className="login-btn" href="/signup">
+                      Sign Up
+                    </Button>
                   </Nav>
                 </>
               )}

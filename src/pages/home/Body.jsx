@@ -71,7 +71,7 @@ export default function Body() {
           easing: (t) => t,
         });
       }
-      // spinGlobe();
+      spinGlobe();
 
       map.current.on("moveend", () => {
         setAnimationEnd(true);
