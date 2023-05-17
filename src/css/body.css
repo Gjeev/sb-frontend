@@ -5,19 +5,28 @@
 }
 .map {
   height: 100%;
-  width: calc(100vw - 8rem);
+  width: calc(100vw);
   background-color: #0d1b1c;
 }
 .left-panel {
-  height: calc(100vh - 77px);
+  height: auto;
+  opacity: 1;
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  left: -200px;
 }
-/* .mapboxgl-ctrl-geocoder--input {
-  height: 2.25rem;
-} */
+.left-panel .panel-opener {
+  position: relative;
+  top: 8px;
+}
 
-.mapboxgl-ctrl-top-right .mapboxgl-ctrl {
-  width: 130%;
+@media (min-width: 450px) {
+  .mapboxgl-ctrl-top-right .mapboxgl-ctrl {
+    width: 130%;
+  }
 }
+
 .progress-spinner {
   position: absolute;
   top: 50%;
@@ -33,19 +42,6 @@
 }
 .progress-spinner svg {
   color: #ffffff;
-}
-.information {
-  font-size: 13px;
-  background-color: rgba(35, 55, 75, 0.9);
-  color: #fff;
-  padding: 10px 12px;
-  font-family: monospace;
-  z-index: 2;
-  position: absolute;
-  bottom: 0;
-  left: 4rem;
-  margin: 12px;
-  border-radius: 4px;
 }
 .tools {
   position: absolute;
