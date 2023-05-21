@@ -15,15 +15,15 @@ export default function Crop({ item, map }) {
         }
         break;
 
-      case "Built Up":
-        if (!isActive) {
-          map.setStyle("mapbox://styles/jemm/clf2e7e07007101qocb6hpjl4");
-        }
-        if (isActive) {
-          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
-        }
-        break;
-      case "Vegetation":
+      // case "Built Up":
+      //   if (!isActive) {
+      //     map.setStyle("mapbox://styles/jemm/clf2e7e07007101qocb6hpjl4");
+      //   }
+      //   if (isActive) {
+      //     map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
+      //   }
+      //   break;
+      case "Farmlands":
         if (!isActive) {
           map.setStyle("mapbox://styles/jemm/clf465b1r001i01o961bjki7v");
         }
@@ -50,7 +50,7 @@ export default function Crop({ item, map }) {
           }
           break;
 
-          case "LULC":
+          case "Urban":
             if (!isActive) {
               map.setStyle("mapbox://styles/jemm/clhg98ttf01be01pgf3rr5k5z");
             }

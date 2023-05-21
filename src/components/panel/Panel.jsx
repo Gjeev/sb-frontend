@@ -40,15 +40,31 @@ export default function Panel({ map }) {
             fontSize: "0.9rem",
             fontWeight: "500",
             color: "#19B1B1",
+            textAlign: "center",
           }}
         >
-          India wide Layers
+          Our Agricultural layers
         </Typography>
         <Box>
           <div className="menu">
             {CropMenuItems.map((item) => {
               return <Crop item={item} map={map}></Crop>;
             })}
+          </div>
+        </Box>
+        <Typography
+          sx={{
+            fontFamily: "Inter",
+            fontSize: "0.9rem",
+            fontWeight: "500",
+            color: "#19B1B1",
+            textAlign: "center",
+          }}
+        >
+          Our Urban layers
+        </Typography>
+        <Box>
+          <div className="menu">
             {UrbanMenuItems.map((item) => {
               return <Crop item={item} map={map}></Crop>;
             })}

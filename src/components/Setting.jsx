@@ -11,8 +11,7 @@ export default function Setting({handleShowPopup}) {
       <NewReleasesIcon
       className={mountedIcon ? 'animate' : ''}
         sx={{
-          fontSize: "1em",
-          padding: "0.5em",
+          padding: "0.15em",
         }}
       ></NewReleasesIcon>
     </div>
