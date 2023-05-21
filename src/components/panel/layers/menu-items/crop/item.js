@@ -25,7 +25,7 @@ let CropMenuItems = [
     },
     {
       id: 4,
-      name: "Vegetation",
+      name: "Farmlands",
       url: "/images/farm-color-icon.svg",
       state: "IN",
     },

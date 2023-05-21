@@ -214,13 +214,11 @@ export default function Tools({
           ></Grid>
         </>
       )}
-      {showSetting && (
-        <>
+
           <Tooltip title="open tools modal">
             <Setting handleShowPopup={handleShowPopup}></Setting>
           </Tooltip>
-        </>
-      )}
+        
     </Box>
   );
 }
