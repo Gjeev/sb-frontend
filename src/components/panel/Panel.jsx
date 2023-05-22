@@ -61,7 +61,7 @@ export default function Panel({ map }) {
             textAlign: "center",
           }}
         >
-          Our Urban layers
+          Our Real Estate layers
         </Typography>
         <Box>
           <div className="menu">

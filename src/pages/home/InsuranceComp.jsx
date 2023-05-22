@@ -41,7 +41,7 @@ export default function InsuranceComp({ handleClose, handleShowPanel }) {
           handleClose();
         }}
       >
-        Insurance Companies
+        Crop Insurance Companies
         <HelpOutlineIcon sx={{ fontSize: "small" }} />
       </Button>
       <Popover

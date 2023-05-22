@@ -39,7 +39,7 @@ export default function Cart() {
           },
           order_meta: {
             return_url: "http://localhost:5173/profile/order_id={order_id}",
-            notify_url: "https://9490-2405-201-e001-5254-d0fd-22e3-4711-52fb.ngrok-free.app/webhook",
+            notify_url: "https://029d-2405-201-e001-5254-409c-b5c1-302f-8a82.ngrok-free.app/webhook",
           },
         })
         .then((res) => {
