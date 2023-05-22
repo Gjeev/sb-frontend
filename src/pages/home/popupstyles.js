@@ -34,7 +34,7 @@ const modalPadding = {
 };
 const buttonStyle = {
   backgroundColor: "#19B1B1",
-  width: 200,
+  width: 250,
   display: "flex",
   alignItems: "center",
   justifyContent: "center",

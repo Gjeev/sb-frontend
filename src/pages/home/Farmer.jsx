@@ -37,7 +37,7 @@ import {
           onMouseLeave={handlePopoverClose}
           sx={buttonStyle}
         >
-          Farmers
+          Real Estate
           <HelpOutlineIcon sx={{ fontSize: "small" }} />
         </Button>
         <Popover

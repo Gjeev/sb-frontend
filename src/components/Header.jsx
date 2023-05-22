@@ -61,7 +61,7 @@ export default function Header() {
     <div className="header">
       <Navbar collapseOnSelect expand="lg" style={{ backgroundColor: "white" }}>
         <Container>
-          <Navbar.Brand href="/">SensingBharat</Navbar.Brand>
+          <Navbar.Brand href="/">Sensing Bharat</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
