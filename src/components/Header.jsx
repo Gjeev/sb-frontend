@@ -84,7 +84,13 @@ export default function Header() {
                 <Dropdown.Menu>
                   {cartData.length > 0 ? (
                     cartData.map((item) => {
-                      const farmId = `Farm-${item.id.substr(0, 4)}`;
+                      let farmId = "";
+                      if(typeof item.id == "number"){
+                        const idToString = item.id.toString();
+                        farmId = `Grid-${idToString.substr(0,4)}`;
+                      } else {
+                      farmId = `Farm-${item.id.substr(0,4)}`;
+                      }
                       return (
                         <Dropdown.Item key={farmId}>{farmId}</Dropdown.Item>
                       );

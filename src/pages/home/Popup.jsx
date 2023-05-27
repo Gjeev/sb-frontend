@@ -16,6 +16,7 @@ export default function Popup({
   showPopup,
   handleShowPopup,
   handleShowSetting,
+  map
 }) {
 
   const handleClose = (event, reason) => {
@@ -50,8 +51,13 @@ export default function Popup({
             <InsuranceComp
               handleClose={handleClose}
               handleShowPanel={handleShowPanel}
+              map={map}
             />
-            <Farmer />
+            <Farmer
+              handleClose={handleClose}
+              handleShowPanel={handleShowPanel}
+              map={map}
+            />
           </Box>
         </Box>
       </Modal>

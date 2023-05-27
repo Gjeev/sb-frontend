@@ -13,9 +13,9 @@ export default function Panel({ map }) {
   };
   useEffect(() => {
     if (openPanel) {
-      document.querySelector(".left-panel").style.left = "0px";
-    } else {
       document.querySelector(".left-panel").style.left = "-200px";
+    } else {
+      document.querySelector(".left-panel").style.left = "0px";
     }
   }, [openPanel]);
 

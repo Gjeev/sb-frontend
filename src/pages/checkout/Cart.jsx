@@ -5,6 +5,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { UPDATE_CART } from "../../constants";
 import { useHistory } from "react-router-dom";
+import DateRangePicker from "@wojtekmaj/react-daterange-picker";
+import "@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css";
+import 'react-calendar/dist/Calendar.css';
 
 export default function Cart() {
   const history = useHistory();
@@ -31,6 +34,7 @@ export default function Cart() {
           order_id: `order-${Math.floor(Math.random() * 1000000000)}`,
           order_amount: cartPrice,
           order_currency: "INR",
+          order_items: cartData,
           customer_details: {
             customer_id: user.name,
             customer_name: user.name,
@@ -39,7 +43,8 @@ export default function Cart() {
           },
           order_meta: {
             return_url: "http://localhost:5173/profile/order_id={order_id}",
-            notify_url: "https://029d-2405-201-e001-5254-409c-b5c1-302f-8a82.ngrok-free.app/webhook",
+            notify_url:
+              "https://029d-2405-201-e001-5254-409c-b5c1-302f-8a82.ngrok-free.app/webhook",
           },
         })
         .then((res) => {
@@ -76,49 +81,40 @@ export default function Cart() {
       return updatedSelectedLayers;
     });
   };
+  const [value, onChange] = useState([new Date(), new Date()]);
 
   return (
     <div className="cart">
       <div className="cart-box">
         <div className="cart-header">Grids added to cart</div>
         <div className="cart-content">
-          {cartData.map((item, index) => (
-            <>
+          {cartData.map((item, index) => {
+            let farmId = "";
+            if (typeof item.id === "number") {
+              const idToString = item.id.toString();
+              farmId = `Grid-${idToString.substr(0, 4)}`;
+            } else {
+              farmId = `Farm-${item.id.substr(0, 4)}`;
+            }
+
+            return (
               <div className="cart-item-list" key={index}>
-                <div className="cart-item">
-                  {item.geometry.type === "Polygon"
-                    ? (() => {
-                        let truncatedId = item.id.substring(0, 5);
-                        let farmName = `Farm-${truncatedId}`;
-                        return farmName;
-                      })()
-                    : item.id}
-                </div>
-                {/* <div className="layer-checklist">
-                  {layers.map((layer) => (
-                    <>
-                      <button
-                        key={layer}
-                        className={`layer-button${
-                          selectedLayers[index]?.includes(layer)
-                            ? "-selected"
-                            : ""
-                        }`}
-                        onClick={() => handleLayerClick(layer, index)}
-                      >
-                        <span>{layer}</span>
-                      </button>
-                    </>
-                  ))}
-                </div> */}
+                <div className="cart-item">{farmId}</div>
                 <div className="cart-item-remove">
-                  <button onClick={handleRemoveClick.bind(this, index)}>
+                  <div>
+                    <DateRangePicker onChange={onChange} value={value} />
+                  </div>
+
+                  <button
+                    onClick={handleRemoveClick.bind(this, index)}
+                    className="cart-btn"
+                  >
                     remove
                   </button>
                 </div>
               </div>
-            </>
-          ))}
+            );
+          })}
           <div className="cart-price">
             <div className="cart-price-text">Total Price</div>
             <div className="cart-price-value">INR {cartPrice}</div>

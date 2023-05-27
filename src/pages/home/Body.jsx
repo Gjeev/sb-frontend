@@ -136,6 +136,7 @@ export default function Body() {
             showPopup={showPopup}
             handleShowPopup={handleShowPopup}
             handleShowSetting={handleShowSetting}
+            map={map.current}
           ></Popup>
         )}
         <div className="left-panel">
