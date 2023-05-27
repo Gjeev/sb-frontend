@@ -9,7 +9,7 @@ import { useState } from "react";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import InsightsIcon from "@mui/icons-material/Insights";
 
-export default function InsuranceComp({ handleClose, handleShowPanel }) {
+export default function InsuranceComp({ handleClose, handleShowPanel, map }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const handlePopoverOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,6 +39,7 @@ export default function InsuranceComp({ handleClose, handleShowPanel }) {
         onClick={() => {
           handleShowPanel(true);
           handleClose();
+          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
         }}
       >
         Crop Insurance Companies

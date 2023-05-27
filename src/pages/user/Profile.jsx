@@ -7,11 +7,16 @@ export default function Profile() {
   useEffect(() => {
     const image = document.querySelector(".details-image");
     if (image) {
-      image.style.backgroundImage = `url(${user.picture})`;
-      image.style.backgroundRepeat = "none";
-      image.style.backgroundSize = "cover";
+      if (user.picture) {
+        image.style.backgroundImage = `url(${user.picture})`;
+        image.style.backgroundRepeat = "none";
+        image.style.backgroundSize = "cover";
+      } else {
+        image.style.backgroundImage = `url(/images/profile.png)`;
+        image.style.backgroundRepeat = "none";
+        image.style.backgroundSize = "cover";
+      }
     }
-    console.log(user);
   }, []);
 
   return (
@@ -40,10 +45,6 @@ export default function Profile() {
                 <div className="section-2-right-details">
                   <div className="two-right-key">Email Id</div>
                   <div className="two-right-value">{user.email}</div>
-                </div>
-                <div className="section-2-right-details">
-                  <div className="two-right-key">Phone Number</div>
-                  <div className="two-right-value">eedehiefkefk</div>
                 </div>
               </div>
             </div>

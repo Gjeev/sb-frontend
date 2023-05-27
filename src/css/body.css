@@ -14,7 +14,7 @@
   position: absolute;
   z-index: 3;
   display: flex;
-  left: -200px;
+  left: 0px;
   transition: left 0.5s;
 }
 .left-panel .panel-opener {
