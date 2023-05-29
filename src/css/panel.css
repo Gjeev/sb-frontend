@@ -38,6 +38,7 @@
 
  .menu-item-selected {
   cursor: pointer;
+  flex-direction: column;
   border-radius: 10px;
   border: solid #51d9d9 1px;
   display: flex;

@@ -149,6 +149,7 @@ export default function Body() {
           </div>
         )}
       </div>
+      
       <div className="tools">
         <Tools
           map={map.current}
