@@ -33,7 +33,8 @@ export default function Panel({ map }) {
 
   return (
     <>
-      <StyledPanel openPanel={openPanel}>
+    <div data-tut="tour_panel">
+    <StyledPanel openPanel={openPanel}>
         <Typography
           sx={{
             fontFamily: "Inter",
@@ -71,13 +72,16 @@ export default function Panel({ map }) {
           </div>
         </Box>
       </StyledPanel>
-      <div className="panel-opener" onClick={handleSVGClick}>
+    </div>
+
+      <div className="panel-opener" onClick={handleSVGClick} >
         <svg
           width="34"
           height="52"
           viewBox="0 0 34 52"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          data-tut="tour_panelopener"
         >
           <path
             d="M33 1H1V51H33L19.9474 26.3731L33 1Z"

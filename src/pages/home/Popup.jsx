@@ -16,9 +16,8 @@ export default function Popup({
   showPopup,
   handleShowPopup,
   handleShowSetting,
-  map
+  map,
 }) {
-
   const handleClose = (event, reason) => {
     if (reason == "backdropClick") {
       handleShowSetting();
@@ -33,8 +32,9 @@ export default function Popup({
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+
       >
-        <Box sx={modalStyle}>
+        <Box sx={modalStyle} data-tut="tour_popup">
           <Typography
             id="modal-modal-title"
             variant="h6"

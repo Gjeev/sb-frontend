@@ -41,6 +41,7 @@ export default function InsuranceComp({ handleClose, handleShowPanel, map }) {
           handleClose();
           map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
         }}
+        data-tut="tour_insurance"
       >
         Crop Insurance Companies
         <HelpOutlineIcon sx={{ fontSize: "small" }} />

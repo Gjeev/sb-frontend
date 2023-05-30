@@ -188,6 +188,7 @@ export default function Tools({
             <div
               className="tool"
               onClick={toggleCollectPoints}
+              data-tut="tour_point"
             >
               <PlaceIcon
                 sx={{
@@ -198,7 +199,8 @@ export default function Tools({
           </Tooltip>
 
           <Tooltip title="draw a polygon">
-            <div className="tool" onClick={toggleDrawTools}>
+            <div className="tool" onClick={toggleDrawTools}
+            data-tut="tour_polygon">
               <TimelineIcon
                 sx={{
                   padding: "0.15em",

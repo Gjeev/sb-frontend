@@ -7,6 +7,7 @@ import Icon from "../../components/svg";
 import { useDispatch, useSelector } from "react-redux";
 import Tools from "../../components/Tools";
 import Popup from "./Popup";
+import { useTour } from "@reactour/tour";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
@@ -19,7 +20,8 @@ export default function Body() {
     zoom: 0,
   };
 
-  const [animationEnd, setAnimationEnd] = useState(false);
+  const [animationEnd, setAnimationEnd] = useState([]);
+  const { setIsOpen } = useTour();
   const gridId = useSelector((state) => state.cart.items);
   const [layerLoad, setLayerLoad] = useState(false);
   const [showModal, setShowModal] = useState(true);
@@ -74,7 +76,7 @@ export default function Body() {
       spinGlobe();
 
       map.current.on("moveend", () => {
-        setAnimationEnd(true);
+        setAnimationEnd((prevState) => [...prevState, true]);
       });
 
       // adding search control to the map
@@ -107,7 +109,7 @@ export default function Body() {
   }, [map.current, showMoreInfo]);
 
   useEffect(() => {
-    if (animationEnd) {
+    if (animationEnd && animationEnd.length === 1) {
       function getLocation() {
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(showPosition);
@@ -116,15 +118,20 @@ export default function Body() {
         }
       }
       function showPosition(position) {
-        map.current.flyTo({
+        map.current.easeTo({
           center: [position.coords.longitude, position.coords.latitude],
           zoom: 9,
           duration: 14000,
-          essential: true,
+          easing: (t) => t,
         });
       }
       getLocation();
     }
+    // once the length becomes 2, start tutorial and remove the event listener
+    if (animationEnd && animationEnd.length === 2) {
+      setIsOpen(true);
+    }
+
   }, [animationEnd]);
 
   return (
@@ -149,7 +156,7 @@ export default function Body() {
           </div>
         )}
       </div>
-      
+
       <div className="tools">
         <Tools
           map={map.current}
