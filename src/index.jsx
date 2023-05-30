@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import combineReducers from "./reducers/index.js";
-import { createStore, applyMiddleware, compose } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -10,6 +10,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { persistStore, persistReducer, createTransform } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
+import { TourProvider } from "@reactour/tour";
+import { steps } from "./data/tutorial.js";
 
 const cartTransform = createTransform(
   (persistedState, _key) => {
@@ -41,7 +43,7 @@ const authTransform = createTransform(
     };
   },
   {
-    whitelist: ['auth'],
+    whitelist: ["auth"],
   }
 );
 
@@ -61,7 +63,9 @@ let persistor = persistStore(store);
 root.render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <App />
+      <TourProvider steps={steps}>
+        <App />
+      </TourProvider>
     </PersistGate>
   </Provider>
 );

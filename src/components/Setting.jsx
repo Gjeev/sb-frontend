@@ -7,7 +7,7 @@ export default function Setting({handleShowPopup}) {
         setMountedIcon(true);
     },[]);
   return (
-    <div className="tool" onClick={handleShowPopup}>
+    <div className="tool" onClick={handleShowPopup} data-tut="tour_setting">
       <NewReleasesIcon
       className={mountedIcon ? 'animate' : ''}
         sx={{

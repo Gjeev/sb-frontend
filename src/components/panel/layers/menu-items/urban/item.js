@@ -10,6 +10,12 @@ const UrbanMenuItems = [
       name: "Urban",
       url: "/images/homepage-green-icon.svg",
       state: "IN",
+    },
+    {
+      id: 2,
+      name: "Meerut",
+      url: "/images/homepage-green-icon.svg",
+      state: "IN",
     }
   ]
 export { UrbanMenuItems };
