@@ -7,7 +7,10 @@ import Grid from "./Grid";
 import { useDispatch } from "react-redux";
 import Setting from "./Setting";
 import { Marker, Popup } from "mapbox-gl";
-//  css in body.css
+
+// the styles for the code in this file is in body.css
+// since the parent component is the body
+// and not much styles are involved
 
 export default function Tools({
   map,

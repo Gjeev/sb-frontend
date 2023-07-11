@@ -1,56 +1,60 @@
-.maincontent{
-    background: linear-gradient(111.45deg, #0B0B14 4.83%, #111234 28.14%, #1A2751 52.3%, #1B2641 74.78%, #062779 97.89%);
-    margin-top: 1rem;
-    color: white;
+.maincontent {
+  background: linear-gradient(
+    111.45deg,
+    #0b0b14 4.83%,
+    #111234 28.14%,
+    #1a2751 52.3%,
+    #1b2641 74.78%,
+    #062779 97.89%
+  );
+  margin-top: 1rem;
+  color: white;
 }
-.containercontactus{
-    padding:2rem;
+.containercontactus {
+  padding: 2rem;
 }
-.namecontainercontactus{
-    display: flex;
-    padding:1rem 2rem 1rem 2rem;
-    justify-content: space-between;
+.namecontainercontactus {
+  display: flex;
+  padding: 1rem 2rem 1rem 2rem;
+  justify-content: space-between;
 }
 @media only screen and (max-width: 700px) {
-    .namecontainercontactus{
-        flex-direction: column;
-    }
+  .namecontainercontactus {
+    flex-direction: column;
+  }
 }
-.paragraphContactUsForm{
-    margin:0;
-    /* padding:0; */
+.paragraphContactUsForm {
+  margin: 0;
 }
-.formcontainercontactus{
-    padding:1rem 2rem 1rem 2rem;
+.formcontainercontactus {
+  padding: 1rem 2rem 1rem 2rem;
 }
-.contactUsSubmitButton{
-    color:white;
-    background-color: #f54236 !important;
+.contactUsSubmitButton {
+  color: white;
+  background-color: #f54236 !important;
 }
-.contactUsSubmitButton:hover{
-    color:white;
-    background-color: #f21808 !important;
+.contactUsSubmitButton:hover {
+  color: white;
+  background-color: #f21808 !important;
 }
-.mapcontactus{
-    width :600px;
-    height:800px;
+.mapcontactus {
+  width: 600px;
+  height: 800px;
 }
-.containercontactusmap{
-    display: flex;
-    justify-content: center;
-    padding:1rem;
-    padding-bottom: 2rem;
+.containercontactusmap {
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+  padding-bottom: 2rem;
 }
 @media only screen and (max-width: 1300px) {
-    .mapcontactus{
-        width:80%;
-    }
-    
+  .mapcontactus {
+    width: 80%;
+  }
 }
 @media only screen and (max-width: 800px) {
-    .mapcontactus{
-        width:80%;
-        height:700px;
-    }
-    
+  .mapcontactus {
+    width: 80%;
+    height: 700px;
+  }
 }

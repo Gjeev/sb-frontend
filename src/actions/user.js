@@ -11,9 +11,10 @@ import * as api from "../api";
 import { useDispatch } from "react-redux";
 import { Auth, LoginCredentials } from "two-step-auth";
 
-LoginCredentials.mailID = "sensingbharat@gmail.com"; //This should have less secure apps enabled
-LoginCredentials.password = "sensingbharatteam@123"; // you can store them in your env variables and access them, it will work fine
-LoginCredentials.use = true;
+LoginCredentials.mailID = import.meta.env.VITE_LOGIN_MAIL_ID;
+LoginCredentials.password = import.meta.env.VITE_LOGIN_PASSWORD;
+LoginCredentials.use = import.meta.env.VITE_LOGIN_USE_MAIL;
+
 export const login =
   (formData, history, onInvalidCredentials, onUsernameDNE) =>
   async (dispatch) => {
@@ -41,13 +42,9 @@ export const login =
 export const checkIfUserExists =
   (formData, setUsernameAlreadyExists, continueToOtp) => async (dispatch) => {
     try {
-      // console.log(req.body);
-      // console.log(formData);
       const { data } = await api.userExistsCheck(formData);
       continueToOtp();
-      // res.status(200).json({message:USER_VALID_FOR_SIGNUP});
       return;
-      // return USER_VALID_FOR_SIGNUP;
     } catch (error) {
       console.log(error);
       const errorMessage = error.response.data.message;
@@ -63,20 +60,18 @@ export const checkIfUserExists =
   };
 export const verifyCredentials = (formData) => async (dispatch) => {
   try {
-    // console.log(formData);
     const { data } = await api.otpverify(formData);
   } catch (error) {
     console.log(error);
   }
 };
-export const resendotp=(formData) => async (dispatch)=>{
-  try{
-    const {data}=await api.resendotp(formData);
-
-  } catch(error){
+export const resendotp = (formData) => async (dispatch) => {
+  try {
+    const { data } = await api.resendotp(formData);
+  } catch (error) {
     console.log(error);
   }
-}
+};
 
 export const signup =
   (loginData, history, setInvalidOTP, closeOTPSendAndDisplayBox) =>
@@ -85,8 +80,6 @@ export const signup =
       const { temporary } = await api.validateotp(loginData);
       closeOTPSendAndDisplayBox();
       const { data } = await api.signUp(loginData);
-      // console.log(loginData);
-      // console.log(data);
       dispatch({ type: LOGIN, data });
       history.push("/");
     } catch (error) {
@@ -104,7 +97,5 @@ export const signup =
 
 export const logout = (history, onUserLogout) => async (dispatch) => {
   dispatch({ type: LOGOUT });
-  // send function here after dispatch
-  // onUserLogout();
   history.push("/");
 };

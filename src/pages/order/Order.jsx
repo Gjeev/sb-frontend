@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
-import "../../css/order.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+
+// basic template to check if the payment route successfully redirected
+// style this page later
 
 export default function Order({}) {
   const { order_id } = useParams();

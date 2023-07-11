@@ -1,19 +1,20 @@
 const UrbanMenuItems = [
-    // {
-    //   id: 0,
-    //   name: "Built up",
-    //   url: "/images/homepage-green-icon.svg",
-    //   state: "IN",
-    // },
     {
-      id: 1,
+      id: 0,
       name: "Urban",
       url: "/images/homepage-green-icon.svg",
       state: "IN",
     },
+    // {
+    //   id: 1,
+    //   name: "Meerut",
+    //   url: "/images/homepage-green-icon.svg",
+    //   state: "IN",
+    // }
+    ,
     {
       id: 2,
-      name: "Meerut",
+      name: "Coherence",
       url: "/images/homepage-green-icon.svg",
       state: "IN",
     }

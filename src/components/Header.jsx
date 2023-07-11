@@ -1,19 +1,9 @@
 import "../css/header.css";
-import { Link, useHistory } from "react-router-dom";
-import { Avatar } from "@mui/material";
-import { deepOrange } from "@mui/material/colors";
+import {  useHistory } from "react-router-dom";
 import { logout } from "../actions/user";
-import { createPdf } from "../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, forwardRef } from "react";
-import {
-  Badge,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
-  Stack,
-} from "@mui/material";
+import { forwardRef } from "react";
+import { Badge } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
@@ -27,20 +17,16 @@ export default function Header() {
 
   const isUserLogged = useSelector((state) => state.auth.isAuthenticated);
   const user = useSelector((state) => state.auth.user);
-  //const userToken = useSelector((state) => state.auth.token);
 
-  // gridId is referred to as cartData here (sorries)
+  // gridId is referred to as cartData here as it is
+  // used to display the number of items in the cart
 
   const cartData = useSelector((state) => state.cart.items || []);
 
   const handleUserLogout = async () => {};
   const handleLogoutButtonClick = () => {
-    //some checks might need to be done when further features are added
-    dispatch(logout(history, handleUserLogout));
-  };
 
-  const handlePDFCheck = () => {
-    dispatch(createPdf());
+    dispatch(logout(history, handleUserLogout));
   };
 
   const CustomCartToggle = forwardRef(({ onClick }, ref) => (
@@ -85,11 +71,11 @@ export default function Header() {
                   {cartData.length > 0 ? (
                     cartData.map((item) => {
                       let farmId = "";
-                      if(typeof item.id == "number"){
+                      if (typeof item.id == "number") {
                         const idToString = item.id.toString();
-                        farmId = `Grid-${idToString.substr(0,4)}`;
+                        farmId = `Grid-${idToString.substr(0, 4)}`;
                       } else {
-                      farmId = `Farm-${item.id.substr(0,4)}`;
+                        farmId = `Farm-${item.id.substr(0, 4)}`;
                       }
                       return (
                         <Dropdown.Item key={farmId}>{farmId}</Dropdown.Item>

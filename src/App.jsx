@@ -9,7 +9,9 @@ import ContactUs from "./pages/contact/ContactUs.jsx";
 import Cart from "./pages/checkout/Cart";
 import Profile from "./pages/user/Profile.jsx";
 import Order from "./pages/order/Order.jsx";
+
 import "./css/styles.css";
+
 export default function App() {
 
   return (

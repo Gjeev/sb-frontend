@@ -127,7 +127,7 @@ export default function Body() {
       }
       getLocation();
     }
-    // once the length becomes 2, start tutorial and remove the event listener
+    // once the length becomes 2, start tutorial
     if (animationEnd && animationEnd.length === 2) {
       setIsOpen(true);
     }
