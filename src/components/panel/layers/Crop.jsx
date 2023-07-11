@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Crop({ item, map }) {
   const [isActive, setIsActive] = useState(false);
@@ -60,6 +60,15 @@ export default function Crop({ item, map }) {
         }
         break;
 
+      case "Coherence":
+        if (!isActive) {
+          map.setStyle("");
+        }
+        if (isActive) {
+          map.setStyle("mapbox://styles/jemm/clghvg19o004v01ped9ri5tzd");
+        }
+        break;
+
       case "Meerut":
         const sliderDiv = document.querySelector("#Meerut");
         let rangeSlider = null;
@@ -109,6 +118,7 @@ export default function Crop({ item, map }) {
           });
         }
         if (isActive) {
+          console.log("removeing")
           rangeSlider = document.querySelector(".slider-input");
           sliderDiv.removeChild(rangeSlider);
           rangeSlider = null;

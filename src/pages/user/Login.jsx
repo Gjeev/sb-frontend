@@ -59,7 +59,6 @@ export default function Login() {
 
     const result = jwt_decode(idToken);
     signInWithCredential(auth, credential).catch((error) => {
-      // Handle Errors here.
       const errorCode = error.code;
       const errorMessage = error.message;
       const email = error.email;

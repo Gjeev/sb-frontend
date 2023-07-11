@@ -29,6 +29,13 @@ export default function Cart() {
     }
     if (user) {
       let paymentSessionId = "";
+
+      // change the URL once the backend is deployed
+      // the phone number can be changed later by the user
+      // in cashfree's payment page
+
+      // i have used a webhook and ngrok to test the payment
+
       axios
         .post("http://localhost:5000/order", {
           order_id: `order-${Math.floor(Math.random() * 1000000000)}`,
