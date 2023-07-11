@@ -48,8 +48,8 @@ export default function Panel({ map }) {
         </Typography>
         <Box>
           <div className="menu">
-            {CropMenuItems.map((item) => {
-              return <Crop item={item} map={map}></Crop>;
+            {CropMenuItems.map((item, index) => {
+              return <Crop item={item} map={map} key={index}></Crop>;
             })}
           </div>
         </Box>
@@ -66,8 +66,8 @@ export default function Panel({ map }) {
         </Typography>
         <Box>
           <div className="menu">
-            {UrbanMenuItems.map((item) => {
-              return <Crop item={item} map={map}></Crop>;
+            {UrbanMenuItems.map((item, index) => {
+              return <Crop item={item} map={map} key={index}></Crop>;
             })}
           </div>
         </Box>

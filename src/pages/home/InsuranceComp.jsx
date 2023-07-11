@@ -76,8 +76,8 @@ export default function InsuranceComp({ handleClose, handleShowPanel, map }) {
               This option will enable you to generate a downloadable PDF with
               A-grade graphics and data.
             </Typography>
-            {info.map((item) => (
-              <Typography sx={guideSmallText}>
+            {info.map((item, index) => (
+              <Typography sx={guideSmallText} key={index}>
                 <InsightsIcon sx={{ fontSize: "13px" }} /> {item}
               </Typography>
             ))}
