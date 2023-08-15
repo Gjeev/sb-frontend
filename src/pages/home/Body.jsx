@@ -4,16 +4,15 @@ import { coordinatesGeocoder } from "./SearchBox";
 import mapboxgl from "mapbox-gl";
 import { useState, useRef, useEffect, useCallback } from "react";
 import Icon from "../../components/svg";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Tools from "../../components/Tools";
 import Popup from "./Popup";
 import { useTour } from "@reactour/tour";
 mapboxgl.accessToken = import.meta.env.VITE_MAP_API_KEY;
 
 export default function Body() {
-  const dispatch = useDispatch();
 
-  const mapContainer = useRef(null);
+  const mapContainer = useRef(null); // useState()
   const map = useRef(null);
   const start = {
     center: [-105, 15],
@@ -51,7 +50,7 @@ export default function Body() {
 
     map.current.on("load", () => {
       function spinGlobe() {
-        const zoom = map.current.getZoom();
+        let zoom = map.current.getZoom();
         const secondsPerRevolution = 120;
         const slowSpinZoom = 1;
         const maxSpinZoom = 2.5;
@@ -93,20 +92,29 @@ export default function Body() {
     });
   }, []);
 
-  const showMoreInfo = useCallback(() => {
+  // const showMoreInfo = useCallback(() => {
+  //   let zoom = map.current.getZoom();
+  //   if (zoom >= 6) {
+  //     handleShowPopup(true);
+  //     map.current.off("zoom", showMoreInfo);
+  //   }
+  // }, [map.current]);
+
+  // useEffect(() => {
+  //   map.current.on("zoom", showMoreInfo);
+  // }, [map.current, showMoreInfo]);
+
+  const showMoreInfo = () => {
     let zoom = map.current.getZoom();
     if (zoom >= 6) {
       handleShowPopup(true);
       map.current.off("zoom", showMoreInfo);
     }
-  }, [map.current]);
+  }
 
   useEffect(() => {
     map.current.on("zoom", showMoreInfo);
-    return () => {
-      map.current.off("zoom", showMoreInfo);
-    };
-  }, [map.current, showMoreInfo]);
+  }, []);
 
   useEffect(() => {
     if (animationEnd && animationEnd.length === 1) {

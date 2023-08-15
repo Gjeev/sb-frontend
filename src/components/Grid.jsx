@@ -11,7 +11,7 @@ export default function Grid({ map, setLayerLoad, setShowModal }) {
 
   useEffect(() => {
     const cartData = localStorage.getItem("persist:root");
-    if (cartData) {
+    if (cartData) { // react throws error when we parse empty or undefined data
       const parsedCartData = JSON.parse(JSON.parse(cartData).cart);
       if (parsedCartData && parsedCartData.items) {
         setLocalGridId(parsedCartData.items);

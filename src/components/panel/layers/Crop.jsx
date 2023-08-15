@@ -5,15 +5,6 @@ export default function Crop({ item, map }) {
   const handleCropClick = (layer) => {
     setIsActive(!isActive);
 
-    // const handleSliderChange = (event) => {
-    //   if (event.target.value == "2017" || event.target.value == "2022") {
-    //     map.setFilter("meerut", ["==", ["get", "Year"], parseInt(event.target.value)]);
-    //   }
-    // };
-    // const handleSliderClick = (event) => {
-    //   event.stopPropagation(); // Prevent click event from bubbling to parent div
-    // };
-
     switch (layer) {
       case "Rice":
         if (!isActive) {
@@ -68,76 +59,7 @@ export default function Crop({ item, map }) {
           map.setStyle("mapbox://styles/jemm/cljvb8ei2014201qog8s3gfpg");
         }
         break;
-        // mapbox://styles/jemm/cljvb8ei2014201qog8s3gfpg
-      // case "Meerut":
-      //   const sliderDiv = document.querySelector("#Meerut");
-      //   let rangeSlider = null;
-      //   if (!isActive) {
-      //     rangeSlider = document.createElement("input");
-      //     rangeSlider.type = "range";
-      //     rangeSlider.min = "2017";
-      //     rangeSlider.max = "2022";
-      //     rangeSlider.value = "2017";
-      //     rangeSlider.className = "slider-input";
-      //     rangeSlider.addEventListener("change", handleSliderChange);
-      //     rangeSlider.addEventListener("click", handleSliderClick);
-      //     sliderDiv.appendChild(rangeSlider);
-      //     map.flyTo({
-      //       center: [77.6, 29.04],
-      //       zoom: 10,
-      //     });
-      //     map.addLayer({
-      //       id: "meerut",
-      //       type: "circle",
-      //       source: {
-      //         type: "geojson",
-      //         data: "https://gjeev.github.io/layers/meerut.geojson",
-      //       },
-      //       paint: {
-      //         "circle-radius": [
-      //           "step",
-      //           ["zoom"],
-      //           2,
-      //           13,
-      //           3,
-      //           14,
-      //           5,
-      //           15.31,
-      //           9,
-      //           16,
-      //           10,
-      //           18,
-      //           12,
-      //           20,
-      //           15
-      //         ],
-      //         "circle-color": "#cd4cb5",
-      //         "circle-opacity": 1,
-      //       },
-      //       filter: ["==", ["get", "Year"], 2017],
-      //     });
-      //   }
-      //   if (isActive) {
-      //     console.log("removeing")
-      //     rangeSlider = document.querySelector(".slider-input");
-      //     sliderDiv.removeChild(rangeSlider);
-      //     rangeSlider = null;
-      //     map.removeLayer("meerut");
-      //     map.removeSource("meerut");
-      //   }
-      //   break;
-
-      // default:
-      //   break;
-    }
-
-    // const crops = document.querySelectorAll("#crop");
-    // crops.forEach((crop) => {
-    //   if (crop.dataset.id !== item.id.toString()) {
-    //     crop.classList.remove("menu-item-selected");
-    //     crop.classList.add("menu-item");
-    //   }
-    // });
+      }
   };
   return (
     <div
